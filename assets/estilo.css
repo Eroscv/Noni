@@ -422,12 +422,10 @@ body.filtros-abertos { overflow: hidden; }
 
 /* ---------- Footer ---------- */
 .footer { background: var(--branco); border-top: 1px solid var(--cinza-borda); padding: 48px 0 0; margin-top: 64px; }
-.footer .marca { display: flex; align-items: center; gap: 16px; margin-bottom: 32px; }
-.footer .marca .logo-mark { height: 40px; color: var(--preto); }
-.footer .marca span { font-size: 34px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; }
+.footer .marca { display: flex; align-items: center; margin-bottom: 32px; }
+.footer .marca .logo-mark { height: 48px; color: var(--preto); }
 @media (min-width: 700px) {
-  .footer .marca .logo-mark { height: 48px; }
-  .footer .marca span { font-size: 40px; }
+  .footer .marca .logo-mark { height: 56px; }
 }
 .footer .colunas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 24px; }
 .footer .colunas h3 { font-size: 12px; text-transform: uppercase; font-weight: 700; margin: 0 0 12px; }
