@@ -23,6 +23,7 @@ Levantamento de ganhos no site inteiro, separado por quanto depende de material 
 - ~~Ícone do WhatsApp de verdade~~ — o botão flutuante usava um balão de chat genérico; trocado pelo glifo reconhecível do WhatsApp (telefone dentro do balão), ainda em preto/branco pra combinar com o grayscale do site, não o verde da marca.
 - ~~Ícone do Instagram no rodapé~~ — o link "Instagram" era só texto; ganhou o ícone (câmera em quadrado arredondado) antes do texto.
 - ~~Filtros/ordenar na coleção~~ — a barra "Filtrar por cor" fixa virou um botão "Filtros e ordenar" (ícone de sliders) que abre um painel lateral: ordenação por radio (Destaques/Mais recentes/Preço ↑/Preço ↓, comportamento nativo do browser, sem JS) + cor por botão independente (pode marcar mais de uma cor — diferente do swatch da PDP, que é 1 cor por vez). Fecha pelo X, clicando fora, ou Esc; "Limpar filtros" reseta os dois. Só em `colecao.html` por enquanto — se fizer sentido em `conjuntos.html` também, é pra pedir.
+- ~~Logo vetorizada no header/rodapé~~ — recebida em 22/09 (3 PDFs). Extraí o monograma como SVG (`pdftocairo`, path vetorial de verdade, não rastreado à mão) e apliquei no header (ícone sozinho, compacto) e no rodapé (ícone + "NONI", replicando o lockup original). Ver `marca/`.
 
 **Dá pra fazer agora, sem esperar nada da cliente:**
 - **Feedback visual no quick add.** Hoje o botão "Adicionar rápido" não muda nada quando clicado — sem essa reação, dá pra clicar 2x achando que não funcionou. Um texto rápido tipo "Adicionado ✓" por 1-2s já resolve, mesmo sem carrinho real por trás.
@@ -31,7 +32,6 @@ Levantamento de ganhos no site inteiro, separado por quanto depende de material 
 - **Hero e cards com foto de verdade** — o maior salto visual do site inteiro é trocar os blocos de cor sólida pelas fotos do ensaio (28/09). Até lá, qualquer enfeite a mais nos placeholders é maquiagem em cima do problema errado. Quando as fotos entrarem (viram `<img>` de verdade), não esquecer alt text descritivo — hoje não existe o problema porque são `<div>` de cor, não imagem.
 - **Galeria da PDP com miniaturas/indicadores** de foto (a Adanola usa setas ‹ › no carrossel) — só faz sentido com mais de 1 foto real por produto.
 - **Tiles de "Conjuntos" com colagem de produtos** em vez de bloco de cor — mesma dependência de foto.
-- **Logo vetorizada no header/rodapé** em vez do wordmark em texto "NONI" — depende do vetor da marca (pendente, ver `acessos/mapa-de-acessos.md`).
 - **Paleta e tipografia de marca** — hoje uso Inter e os 4 HEX da planilha porque é o que existe; se a Simone trouxer fonte/paleta própria da marca, isso muda o token system inteiro (`estilo.css`, seção `:root`).
 
 **Só quando a loja Shopify existir (não dá pra fazer num protótipo estático):**
@@ -58,6 +58,7 @@ Depois abrir `http://localhost:4173/index.html`.
 | `guia-de-tamanhos.html` | Tabela de medidas por tamanho (PP–G) + como medir — estrutura pronta, números pendentes | Referenciado a partir da PDP, como o briefing pede |
 | `carrinho.html` | Sacola com 2 itens de exemplo, stepper de quantidade, remover item, resumo com subtotal | Fecha o loop do quick add/"ver o valor final" dentro do próprio site da Noni |
 | `conjuntos.html` | As 4 coleções de conjuntos (Branco/Preto/Esmeralda/Mascavo) em uma página só, cada uma com suas peças reais | `navegacao/arquitetura-navegacao.md` — o link "Conjuntos" do menu (antes quebrado, apontava pra a listagem de Tops) agora leva aqui |
+| `acessorios.html` | Linha separada da Coleção 1 — 6 produtos (garrafa, 2 modelos de boné em Tactel/Tecido + 2 variantes exclusivas em Veludo cotelê, home fragrance), estoque real de 143 unidades | `catalogo/acessorios-catalogo.xlsx` (planilha recebida em 22/09) |
 | `trocas-e-devolucoes.html` | Estrutura da política (prazo, como solicitar, condição da peça, reembolso) — cada seção com o que falta decidir, não regra inventada | Link do rodapé, antes `#` |
 | `politica-de-privacidade.html` | Estrutura de uma política de privacidade de e-commerce brasileiro (LGPD) — texto legal real ainda não escrito, isso não é trabalho pra IA assinar sem revisão jurídica | Link do rodapé, antes `#` |
 | `termos-de-uso.html` | Mesma lógica — estrutura pronta, texto legal pendente de revisão jurídica | Link do rodapé, antes `#` |
@@ -83,6 +84,7 @@ Passei o protótipo pela skill de frontend design antes desta rodada e ajustei o
 ```
 index.html ──┬── colecao.html?tipo=... ──── produto.html ──┬── guia-de-tamanhos.html
              ├── conjuntos.html#cor ─────────────────────────┘
+             ├── acessorios.html
              └── sobre.html
 
 Todas as páginas ──┬── carrinho.html (ícone da sacola + botão flutuante)
@@ -91,7 +93,7 @@ Todas as páginas ──┬── carrinho.html (ícone da sacola + botão flutu
                     └── termos-de-uso.html (rodapé)
 ```
 
-10 páginas ao todo. Ícone de sacola e botão flutuante (header + canto da tela, todas as páginas) → `carrinho.html`. Rodapé (todas as páginas) → `sobre.html`, `guia-de-tamanhos.html`, `trocas-e-devolucoes.html`, `politica-de-privacidade.html`, `termos-de-uso.html`.
+11 páginas ao todo. Ícone de sacola e botão flutuante (header + canto da tela, todas as páginas) → `carrinho.html`. Rodapé (todas as páginas) → `sobre.html`, `guia-de-tamanhos.html`, `trocas-e-devolucoes.html`, `politica-de-privacidade.html`, `termos-de-uso.html`.
 
 ## O que é placeholder (marcado no próprio HTML, não escondido)
 
@@ -99,7 +101,7 @@ Todas as páginas ──┬── carrinho.html (ícone da sacola + botão flutu
 - Preço: texto "Preço a definir" em vez de qualquer valor — não fabricar preço.
 - Avaliações: nota indicando que o Judge.me entra no dia 1, em vez de simular estrelas/contagem.
 - Texto do anúncio no topo, frete, trocas, telefone de WhatsApp, endereço: marcados `[...]` ou "a definir" — todos dependem de decisão ou dado que ainda não chegou (ver `README.md` da raiz e `acessos/mapa-de-acessos.md`).
-- Logo: wordmark em texto ("NONI"), não uma logo desenhada — vetor da marca ainda não recebido.
+- Acessórios: preço, peso/dimensão de envio e foto também pendentes — mesmo critério da Coleção 1, mas aqui a quantidade em estoque já é real (não é uma pré-venda).
 
 ## Mapa de conversão para Liquid (quando a loja existir)
 
@@ -122,6 +124,8 @@ Todas as páginas ──┬── carrinho.html (ícone da sacola + botão flutu
 | `conjuntos.html` (cada `.conjunto-bloco`) | Vira 4 coleções manuais no Shopify (uma por cor), listadas numa única `templates/page.sets.json` com `{% for %}` sobre as coleções, ou 4 seções fixas se a Simone preferir curadoria manual em vez de coleção automática |
 | `trocas-e-devolucoes.html`, `politica-de-privacidade.html`, `termos-de-uso.html` | Páginas de conteúdo padrão (`templates/page.json`) — o Shopify já tem um bloco de políticas prontas em Configurações › Políticas, que gera essas páginas automaticamente uma vez que o texto legal existir |
 | `.flutuantes` | `sections/floating-buttons.liquid` ou snippet incluído no `theme.liquid`, fora do `{{ content_for_layout }}` para aparecer em toda página |
+| `acessorios.html` | Coleção "Acessórios" separada da Coleção 1 (`templates/collection.acessorios.json`) — Home Fragrance fica em Tipo de produto "Casa e bem-estar", os outros em "Acessórios", puxados a partir de `catalogo/acessorios-catalogo.xlsx` |
+| `.logo-mark` (header + rodapé) | Vira o logo do tema em `settings_schema.json` (`image_picker` para o SVG/PNG da marca) referenciado em `sections/header.liquid` e `sections/footer.liquid` — o SVG já está pronto em `marca/logo-monograma.svg`, é só subir como asset do tema |
 
 ## Próximo passo real
 
