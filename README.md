@@ -12,6 +12,8 @@ Testado com medição real (`scrollWidth` vs `innerWidth`, não só olhando prin
 
 **Confirmado que já estava certo:** grid de produtos (2 col mobile → 4 col desktop), rodapé (2 col → 4 col), painel de filtros (`min(340px, 88vw)`, nunca estoura em telas pequenas), tabela de medidas com scroll horizontal próprio (não estoura a página) — todos os breakpoints já estavam bem calibrados — o problema era só a duplicação de estilo, não o resultado visual.
 
+**Bug real de mobile encontrado e corrigido:** o botão "Adicionar rápido" dos cards de produto (home, coleção, acessórios, "você também pode gostar" da PDP) ficava **sobreposto ao selo "Foto pendente"** em qualquer tela sem hover (celular/tablet real). Causa: o CSS de fallback de toque (`@media (hover:none)`) trocava o botão para `position:static`, mas como ele é filho de `.card-foto` (que tem `overflow:hidden`), isso o empurrava pro topo da foto em vez de deixá-lo abaixo dela. Corrigido mantendo o botão `position:absolute` sobreposto ao rodapé da foto (mesmo comportamento do hover desktop, só que sempre visível) — testado nas 4 páginas que usam o padrão, sem sobreposição em nenhuma. Só foi pego agora porque a verificação anterior media overflow horizontal, não colisão entre elementos dentro do card.
+
 ## Melhorias visuais e de UX possíveis (lista, checada contra a skill de frontend design + ui-ux-pro-max)
 
 Levantamento de ganhos no site inteiro, separado por quanto depende de material que ainda não chegou. Passei pelas duas skills — frontend design (crítica de estilo/composição) e ui-ux-pro-max (base de 119 diretrizes de UX/acessibilidade) — pra não ficar só na opinião.
@@ -22,7 +24,7 @@ Levantamento de ganhos no site inteiro, separado por quanto depende de material 
 - ~~Ícone decorativo sendo lido 2x pelo leitor de tela~~ — os 7 SVGs agora levam `aria-hidden="true" focusable="false"`, já que o botão em volta já tem `aria-label`.
 
 **Confirmado que já estava certo (a base de UX validou, não é só impressão minha):**
-- Quick add não depende só de `:hover` — tem fallback de toque (`@media (hover:none)`), que é exatamente o padrão recomendado ("Hover vs Tap: don't rely only on hover for important actions").
+- Quick add não depende só de `:hover` — tem fallback de toque (`@media (hover:none)`), que é exatamente o padrão recomendado ("Hover vs Tap: don't rely only on hover for important actions"). *(A intenção estava certa; a implementação desse fallback tinha um bug de posicionamento — ver "Bug real de mobile" acima, corrigido.)*
 - Todo bloco de foto usa `aspect-ratio` fixo — reserva espaço antes de carregar, evita o "Content Jumping" que a base marca como severidade alta.
 - Breadcrumb só aparece em página com 3+ níveis (a home não tem, o carrinho não tem) — bate com a diretriz "breadcrumbs: use for sites with 3+ levels, don't use on flat pages".
 - **A escolha de grayscale estrito + zero-radius não é o padrão que a base de produto sugere pra e-commerce** (ela indica "Vibrant & Block-based, brand primary + success green" como default) — segui o brief da própria cliente (documentos da Adanola) em vez do genérico da ferramenta, de propósito.

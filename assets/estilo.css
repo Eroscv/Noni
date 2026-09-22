@@ -285,8 +285,10 @@ body.menu-aberto { overflow: hidden; }
 }
 .card:hover .quick-add, .card:focus-within .quick-add { opacity: 1; transform: translateY(0); }
 @media (hover: none) {
-  /* touch: sem hover — o quick add fica sempre visível, como observado no benchmark mobile */
-  .quick-add { opacity: 1; transform: none; position: static; margin-top: 8px; }
+  /* touch: sem hover — o quick add fica sempre visível, como observado no benchmark mobile.
+     Continua absoluto (sobreposto ao rodapé da foto): como é filho de .card-foto (overflow:hidden),
+     position:static o empurrava para o topo, por cima do selo "Foto pendente". */
+  .quick-add { opacity: 1; transform: none; }
 }
 
 /* ---------- Barra de filtros/ordenar (PLP) ---------- */
