@@ -420,6 +420,30 @@ body.filtros-abertos { overflow: hidden; }
   padding: 10px 12px; margin-top: 8px;
 }
 
+/* ---------- Tabela de medidas (guia de tamanhos) ---------- */
+.tabela-medidas-wrap { overflow-x: auto; margin-bottom: 16px; }
+.tabela-medidas { border-collapse: collapse; width: 100%; min-width: 480px; }
+.tabela-medidas th, .tabela-medidas td { padding: 10px 12px; border: 1px solid var(--cinza-borda); }
+.tabela-medidas th { text-align: left; font-size: 11px; text-transform: uppercase; font-weight: 700; }
+.tabela-medidas td:first-child { font-weight: 700; }
+.tabela-medidas td:not(:first-child) { color: var(--cinza-texto-sutil); }
+
+.como-medir strong { display: block; font-size: 13px; text-transform: uppercase; margin-bottom: 6px; }
+.como-medir p { font-size: 13px; color: var(--cinza-texto-sutil); margin: 0; }
+
+.duvida-tamanho { background: #fafafa; margin-top: 24px; padding: 32px 24px; }
+.duvida-tamanho h2 { font-size: 16px; font-weight: 700; text-transform: uppercase; margin: 0 0 8px; }
+.duvida-tamanho p { font-size: 13px; color: var(--cinza-texto-sutil); margin: 0; }
+
+/* ---------- Página de conteúdo legal (Trocas, Privacidade, Termos) ----------
+   Antes cada h1/h2/p repetia o mesmo style="" inline nos 3 arquivos —
+   26 repetições ao todo. Centralizado aqui: 1 lugar pra mudar espaçamento. */
+.pagina-legal { max-width: 760px; padding-bottom: 64px; }
+.pagina-legal h1 { font-size: 28px; font-weight: 500; margin: 8px 0 20px; }
+.pagina-legal > .pendente-nota { margin-bottom: 32px; }
+.pagina-legal h2 { font-size: 15px; text-transform: uppercase; font-weight: 700; margin: 28px 0 8px; }
+.pagina-legal p { font-size: 14px; color: var(--cinza-texto-sutil); }
+
 /* ---------- Footer ---------- */
 .footer { background: var(--branco); border-top: 1px solid var(--cinza-borda); padding: 48px 0 0; margin-top: 64px; }
 .footer .marca { display: flex; align-items: center; margin-bottom: 32px; }

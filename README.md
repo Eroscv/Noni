@@ -2,6 +2,16 @@
 
 Este protótipo é HTML/CSS/JS puro (sem framework, sem build), pensado para ser **traduzido página por página em seções/snippets Liquid** quando a loja Shopify existir — não é o entregável final, é a etapa "acertar o layout antes de portar pro tema".
 
+## Auditoria de responsividade e espaçamento (22/09)
+
+Testado com medição real (`scrollWidth` vs `innerWidth`, não só olhando print) nas 11 páginas em 5 larguras: 320, 375, 768, 1024 e 1440px — os breakpoints que a base de UX recomenda testar. **Nenhum overflow horizontal em nenhuma combinação página × largura.**
+
+**Achado real, corrigido:** `guia-de-tamanhos.html` e as 3 páginas legais (Trocas, Privacidade, Termos) tinham o mesmo bloco de `style=""` inline repetido dezenas de vezes — o `h2` de seção repetia `font-size:15px; text-transform:uppercase; font-weight:700; margin:28px 0 8px;` 16 vezes em 3 arquivos, e a tabela de medidas repetia `padding:10px 12px; border:1px solid var(--cinza-borda)` em 24 células. Isso não quebrava nada hoje, mas qualquer ajuste de espaçamento futuro exigiria editar cada repetição manualmente — risco real de inconsistência. Virou 4 classes novas no CSS (`.pagina-legal`, `.tabela-medidas`, `.como-medir`, `.duvida-tamanho`): **30+ `style=""` inline removidos, zero inline restante nessas 4 páginas.**
+
+**Achado menor, só anotado (não é bug hoje):** na home, em telas ~900px de altura, o link "Ver tudo" da seção "Novidades" fica a 6px do botão flutuante de WhatsApp/sacola — não sobrepõe, mas é apertado. Isso depende do texto do anúncio no topo (hoje um placeholder mais longo que o texto real deve ser) — vale reconferir quando o texto definitivo da Simone entrar, antes de decidir se precisa de ajuste.
+
+**Confirmado que já estava certo:** grid de produtos (2 col mobile → 4 col desktop), rodapé (2 col → 4 col), painel de filtros (`min(340px, 88vw)`, nunca estoura em telas pequenas), tabela de medidas com scroll horizontal próprio (não estoura a página) — todos os breakpoints já estavam bem calibrados — o problema era só a duplicação de estilo, não o resultado visual.
+
 ## Melhorias visuais e de UX possíveis (lista, checada contra a skill de frontend design + ui-ux-pro-max)
 
 Levantamento de ganhos no site inteiro, separado por quanto depende de material que ainda não chegou. Passei pelas duas skills — frontend design (crítica de estilo/composição) e ui-ux-pro-max (base de 119 diretrizes de UX/acessibilidade) — pra não ficar só na opinião.
