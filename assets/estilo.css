@@ -223,6 +223,8 @@ body.menu-aberto { overflow: hidden; }
   padding: 28px;
   color: var(--branco);
   position: relative;
+  background-size: cover;
+  background-position: center;
 }
 .hero-painel::after {
   content: "";
