@@ -74,6 +74,15 @@ document.addEventListener('click', function (e) {
   if (e.target.closest('#fechar-filtros') || e.target.closest('#filtros-backdrop') || e.target.closest('#aplicar-filtros')) {
     abrirFecharFiltros(false);
   }
+
+  // Carrinho flutuante — abrir (botão de sacola no canto)
+  if (e.target.closest('#abrir-carrinho')) {
+    abrirFecharCarrinho(true);
+  }
+  // Carrinho flutuante — fechar (X ou fundo escurecido)
+  if (e.target.closest('#fechar-carrinho') || e.target.closest('#carrinho-backdrop')) {
+    abrirFecharCarrinho(false);
+  }
   // Limpar filtros — volta pro estado inicial (Destaques + nenhuma cor marcada)
   if (e.target.closest('#limpar-filtros')) {
     const drawer = document.getElementById('filtros-drawer');
@@ -89,6 +98,7 @@ document.addEventListener('keydown', function (e) {
   if (e.key !== 'Escape') return;
   if (document.body.classList.contains('menu-aberto')) abrirFecharMenu(false);
   if (document.body.classList.contains('filtros-abertos')) abrirFecharFiltros(false);
+  if (document.body.classList.contains('carrinho-aberto')) abrirFecharCarrinho(false);
 });
 
 function abrirFecharMenu(abrir) {
@@ -103,6 +113,14 @@ function abrirFecharFiltros(abrir) {
   document.body.classList.toggle('filtros-abertos', abrir);
   const btn = document.getElementById('abrir-filtros');
   const drawer = document.getElementById('filtros-drawer');
+  if (btn) btn.setAttribute('aria-expanded', String(abrir));
+  if (drawer) drawer.setAttribute('aria-hidden', String(!abrir));
+}
+
+function abrirFecharCarrinho(abrir) {
+  document.body.classList.toggle('carrinho-aberto', abrir);
+  const btn = document.getElementById('abrir-carrinho');
+  const drawer = document.getElementById('carrinho-drawer');
   if (btn) btn.setAttribute('aria-expanded', String(abrir));
   if (drawer) drawer.setAttribute('aria-hidden', String(!abrir));
 }

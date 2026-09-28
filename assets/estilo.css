@@ -343,6 +343,43 @@ body.filtros-abertos { overflow: hidden; }
   font-size: 12px; text-decoration: underline; text-underline-offset: 3px; color: var(--cinza-texto-sutil);
 }
 
+/* ---------- Carrinho flutuante (mini-sacola em painel, aberta pelo botão de sacola) ---------- */
+.carrinho-backdrop {
+  position: fixed; inset: 0; z-index: 45;
+  background: rgba(17,17,17,.4);
+  opacity: 0; pointer-events: none;
+  transition: opacity .25s ease;
+}
+body.carrinho-aberto .carrinho-backdrop { opacity: 1; pointer-events: auto; }
+
+.carrinho-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 50;
+  width: min(380px, 92vw);
+  background: var(--branco);
+  display: flex; flex-direction: column;
+  padding: 20px var(--gutter-mobile);
+  transform: translateX(100%);
+  transition: transform .25s ease;
+  overflow-y: auto;
+}
+body.carrinho-aberto .carrinho-drawer { transform: translateX(0); }
+body.carrinho-aberto { overflow: hidden; }
+.carrinho-drawer .cabecalho { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+.carrinho-drawer .cabecalho h2 { font-size: 14px; font-weight: 700; text-transform: uppercase; margin: 0; }
+.carrinho-drawer-lista { display: flex; flex-direction: column; padding-bottom: 8px; border-bottom: 1px solid var(--cinza-borda); }
+.carrinho-drawer-lista .carrinho-item:last-child { border-bottom: 0; padding-bottom: 4px; }
+.carrinho-drawer-sugestoes { padding: 20px 0; border-bottom: 1px solid var(--cinza-borda); }
+.carrinho-drawer-sugestoes h3 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .03em; color: var(--cinza-texto-sutil); margin: 0 0 14px; }
+.sugestao-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; }
+.sugestao-item .foto { width: 52px; height: 65px; flex-shrink: 0; background-size: cover; background-position: center; }
+.sugestao-item .info { flex: 1; min-width: 0; }
+.sugestao-item .titulo { font-size: 13px; font-weight: 500; margin: 0 0 2px; }
+.sugestao-item .preco { font-size: 12px; color: var(--cinza-texto-sutil); margin: 0; }
+.sugestao-item .add-icone { width: 26px; height: 26px; flex-shrink: 0; border: 1px solid var(--preto); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.carrinho-drawer-rodape { margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 10px; }
+.carrinho-drawer-rodape .carrinho-total { display: flex; align-items: baseline; justify-content: space-between; font-weight: 700; font-size: 14px; text-transform: uppercase; margin-bottom: 4px; }
+.carrinho-drawer-rodape .ver-sacola { text-align: center; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; color: var(--cinza-texto-sutil); }
+
 /* ---------- Filtro de linha (PLP) ---------- */
 .linhas { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gutter-mobile); margin-bottom: 32px; }
 .linha-tile { text-align: center; }

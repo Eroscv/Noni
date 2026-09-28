@@ -108,9 +108,82 @@
 
 <div class="flutuantes">
   <a class="flutuante-btn" href="#" aria-label="Falar no WhatsApp — telefone pendente" title="WhatsApp — telefone pendente"><svg aria-hidden="true" focusable="false" width="22" height="22" viewBox="0 0 448 512" fill="currentColor"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg></a>
-  <a class="flutuante-btn" href="carrinho.html" aria-label="Ver sacola">
+  <button type="button" class="flutuante-btn" id="abrir-carrinho" aria-haspopup="true" aria-expanded="false" aria-controls="carrinho-drawer" aria-label="Ver sacola (2 itens)">
     <svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M6 8h12l1 12.5a1 1 0 0 1-1 1.1H6a1 1 0 0 1-1-1.1L6 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2" stroke-linecap="round"/></svg><span class="contagem">2</span>
-  </a>
+  </button>
+</div>
+
+<div class="carrinho-backdrop" id="carrinho-backdrop"></div>
+<div class="carrinho-drawer" id="carrinho-drawer" aria-hidden="true" aria-label="Sua sacola">
+  <div class="cabecalho">
+    <h2>Sua sacola (2)</h2>
+    <button class="fechar-menu" id="fechar-carrinho" aria-label="Fechar sacola" style="margin-bottom:0;"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg></button>
+  </div>
+
+  <div class="carrinho-drawer-lista">
+    <div class="carrinho-item">
+      <div class="foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1762331651871-76ae345a365f.jpg?v=1790599584')" title="Foto de banco (Unsplash) — produto real pendente do ensaio fotográfico da Noni"></div>
+      <div class="info">
+        <p class="titulo">Legging</p>
+        <p class="variante">Preto · Tamanho M</p>
+        <div class="rodape-item">
+          <div class="qtd-stepper">
+            <button aria-label="Diminuir quantidade">−</button>
+            <span>1</span>
+            <button aria-label="Aumentar quantidade">+</button>
+          </div>
+          <span class="preco-item">Preço a definir</span>
+        </div>
+        <button class="remover" style="margin-top:10px;">Remover</button>
+      </div>
+    </div>
+
+    <div class="carrinho-item">
+      <div class="foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1674075303920-827a14ccaa46.jpg?v=1790599545')" title="Foto de banco (Unsplash) — produto real pendente do ensaio fotográfico da Noni"></div>
+      <div class="info">
+        <p class="titulo">Top alça larga</p>
+        <p class="variante">Esmeralda · Tamanho P</p>
+        <div class="rodape-item">
+          <div class="qtd-stepper">
+            <button aria-label="Diminuir quantidade">−</button>
+            <span>1</span>
+            <button aria-label="Aumentar quantidade">+</button>
+          </div>
+          <span class="preco-item">Preço a definir</span>
+        </div>
+        <button class="remover" style="margin-top:10px;">Remover</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="carrinho-drawer-sugestoes">
+    <h3>Você também pode gostar</h3>
+    <a class="sugestao-item" href="acessorios.html">
+      <div class="foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1598410924570-6e37b6c54fe6.jpg?v=1790599587')"></div>
+      <div class="info">
+        <p class="titulo">Garrafa</p>
+        <p class="preco">Preço a definir</p>
+      </div>
+      <span class="add-icone">+</span>
+    </a>
+    <a class="sugestao-item" href="acessorios.html">
+      <div class="foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1691256676359-20e5c6d4bc92.jpg?v=1790600133')"></div>
+      <div class="info">
+        <p class="titulo">Boné 6 gomos</p>
+        <p class="preco">Preço a definir</p>
+      </div>
+      <span class="add-icone">+</span>
+    </a>
+  </div>
+
+  <div class="carrinho-drawer-rodape">
+    <div class="carrinho-total">
+      <span>Total</span>
+      <span>Preço a definir</span>
+    </div>
+    <a class="btn btn-primario btn-full" href="carrinho.html">Finalizar compra</a>
+    <a class="ver-sacola" href="carrinho.html">Ver sacola completa</a>
+  </div>
 </div>
 
 <script src="assets/app.js"></script>
