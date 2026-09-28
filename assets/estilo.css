@@ -100,10 +100,9 @@ main p a:hover,
   color: var(--branco);
   text-align: center;
   font-size: 12px;
-  font-weight: 700;
-  letter-spacing: .02em;
+  font-weight: 500;
+  letter-spacing: .01em;
   padding: 8px 12px;
-  text-transform: uppercase;
 }
 
 .header {
@@ -235,12 +234,6 @@ body.menu-aberto { overflow: hidden; }
 .hero-texto { position: relative; z-index: 1; }
 .hero-texto p.eyebrow { font-size: 12px; font-weight: 700; text-transform: uppercase; margin: 0 0 8px; }
 .hero-texto h1 { font-size: 28px; font-weight: 500; margin: 0 0 16px; max-width: 22ch; }
-.foto-pendente {
-  position: absolute; top: 12px; left: 12px; z-index: 2;
-  background: var(--branco); color: var(--preto);
-  font-size: 10px; font-weight: 700; text-transform: uppercase;
-  padding: 4px 8px; border: 1px solid var(--preto);
-}
 @media (min-width: 900px) {
   .hero-grid { grid-template-columns: 1fr 1fr; }
   .hero-painel { aspect-ratio: auto; height: 78vh; padding: 48px; align-items: center; justify-content: center; text-align: center; }
@@ -271,12 +264,11 @@ body.menu-aberto { overflow: hidden; }
   background-position: center;
 }
 .card-foto .foto-link { position: absolute; inset: 0; z-index: 1; }
-.card-foto .foto-pendente { top: 8px; left: 8px; right: auto; width: fit-content; max-width: 68%; font-size: 9px; padding: 3px 6px; line-height: 1.3; z-index: 2; }
 .card .badge { position: absolute; top: 8px; right: 8px; z-index: 2; }
 .card-info { padding-top: 10px; }
 .card-info .cores { font-size: 12px; color: var(--cinza-texto-sutil); margin: 0 0 4px; }
 .card-info .titulo { font-size: 14px; font-weight: 500; margin: 0 0 4px; }
-.card-info .preco { font-size: 14px; font-weight: 700; margin: 0; }
+.card-info .preco { font-size: 14px; font-weight: 500; font-style: italic; color: var(--cinza-texto-sutil); margin: 0; }
 .quick-add {
   position: absolute; left: 8px; right: 8px; bottom: 8px;
   display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -378,6 +370,7 @@ body.carrinho-aberto { overflow: hidden; }
 .sugestao-item .add-icone { width: 26px; height: 26px; flex-shrink: 0; border: 1px solid var(--preto); display: flex; align-items: center; justify-content: center; font-size: 15px; }
 .carrinho-drawer-rodape { margin-top: auto; padding-top: 20px; display: flex; flex-direction: column; gap: 10px; }
 .carrinho-drawer-rodape .carrinho-total { display: flex; align-items: baseline; justify-content: space-between; font-weight: 700; font-size: 14px; text-transform: uppercase; margin-bottom: 4px; }
+.carrinho-drawer-rodape .carrinho-total span:last-child { font-weight: 500; font-style: italic; text-transform: none; color: var(--cinza-texto-sutil); }
 .carrinho-drawer-rodape .ver-sacola { text-align: center; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; color: var(--cinza-texto-sutil); }
 
 /* ---------- Filtro de linha (PLP) ---------- */
@@ -402,10 +395,16 @@ body.carrinho-aberto { overflow: hidden; }
 }
 .pdp-galeria { display: grid; gap: 8px; }
 .pdp-galeria .foto { aspect-ratio: 3/4; position: relative; background-size: cover; background-position: center; }
+.foto-vazia {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+  background: var(--cor-branco); color: var(--cinza-texto-sutil); text-align: center; padding: 24px;
+}
+.foto-vazia svg { opacity: .55; }
+.foto-vazia span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .02em; max-width: 22ch; }
 
 .pdp-compra .titulo { font-size: var(--tam-titulo-produto); font-weight: 500; margin: 12px 0 6px; }
 .pdp-compra .preco-linha { display: flex; align-items: center; gap: 10px; margin-bottom: 20px; }
-.pdp-compra .preco { font-size: 16px; font-weight: 700; }
+.pdp-compra .preco { font-size: 16px; font-weight: 500; font-style: italic; color: var(--cinza-texto-sutil); }
 .pdp-compra .avaliacao { font-size: 12px; color: var(--cinza-texto-sutil); border-bottom: 1px solid var(--cinza-texto-sutil); }
 
 .opcao-bloco { margin-bottom: 22px; }
@@ -536,7 +535,6 @@ body.carrinho-aberto { overflow: hidden; }
 }
 .carrinho-item { display: flex; gap: 16px; padding: 20px 0; border-bottom: 1px solid var(--cinza-borda); }
 .carrinho-item .foto { width: 84px; height: 105px; flex-shrink: 0; position: relative; background-size: cover; background-position: center; }
-.carrinho-item .foto .foto-pendente { font-size: 8px; padding: 2px 4px; max-width: 90%; }
 .carrinho-item .info { flex: 1; min-width: 0; }
 .carrinho-item .info .titulo { font-size: 14px; font-weight: 500; margin: 0 0 4px; }
 .carrinho-item .info .variante { font-size: 12px; color: var(--cinza-texto-sutil); margin: 0 0 12px; }
@@ -545,12 +543,13 @@ body.carrinho-aberto { overflow: hidden; }
 .qtd-stepper button { width: 36px; height: 36px; background: none; border: 0; font-size: 15px; }
 .qtd-stepper span { width: 32px; text-align: center; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; }
 .carrinho-item .remover { font-size: 11px; text-transform: uppercase; text-decoration: underline; color: var(--cinza-texto-sutil); background: none; border: 0; padding: 0; }
-.carrinho-item .preco-item { font-size: 13px; font-weight: 700; white-space: nowrap; }
+.carrinho-item .preco-item { font-size: 13px; font-weight: 500; font-style: italic; color: var(--cinza-texto-sutil); white-space: nowrap; }
 
 .carrinho-resumo { border: 1px solid var(--cinza-borda); padding: 20px; }
 .carrinho-resumo h2 { font-size: 12px; text-transform: uppercase; font-weight: 700; margin: 0 0 16px; }
 .carrinho-resumo .linha { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 10px; color: var(--cinza-texto-sutil); }
 .carrinho-resumo .linha.total { font-weight: 700; font-size: 15px; color: var(--preto); border-top: 1px solid var(--cinza-borda); padding-top: 12px; margin-top: 12px; }
+.carrinho-resumo .linha.total span:last-child { font-weight: 500; font-style: italic; color: var(--cinza-texto-sutil); }
 .carrinho-vazio { text-align: center; padding: 64px 0; color: var(--cinza-texto-sutil); }
 
 /* ---------- Conjuntos ---------- */

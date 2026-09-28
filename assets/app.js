@@ -46,6 +46,19 @@ document.addEventListener('click', function (e) {
     removerBtn.closest('.carrinho-item').remove();
   }
 
+  // Adicionar rápido (card) / Adicionar à sacola (PDP) — não existe carrinho real
+  // neste protótipo, mas abre a sacola flutuante como confirmação visual, em vez
+  // de não reagir a nada. ":not(a)" exclui o card da Legging, que já navega pra
+  // uma PDP de verdade em vez de fingir adicionar.
+  const addRapidoBtn = e.target.closest('.quick-add:not(a)');
+  if (addRapidoBtn) {
+    abrirFecharCarrinho(true);
+  }
+  const ctaPrincipal = e.target.closest('[data-cta-principal]');
+  if (ctaPrincipal && ctaPrincipal.getAttribute('aria-disabled') !== 'true') {
+    abrirFecharCarrinho(true);
+  }
+
   // Menu mobile — abrir
   const menuBtn = e.target.closest('.menu-mobile-btn');
   if (menuBtn) {
