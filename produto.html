@@ -129,6 +129,7 @@
     <div class="grid-produtos" style="padding-bottom:48px;">
       <article class="card">
         <div class="card-foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1674075303920-827a14ccaa46.jpg?v=1790599545')" title="Foto de banco (Unsplash) — produto real pendente do ensaio fotográfico da Noni">
+          <a class="foto-link" href="produto.html?produto=top-alca-larga" aria-label="Ver Top alça larga"></a>
           <button class="quick-add"><span>+</span> Adicionar rápido</button>
         </div>
         <div class="card-info">
@@ -139,6 +140,7 @@
       </article>
       <article class="card">
         <div class="card-foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1531520563951-4c0e3d3fcacc.jpg?v=1790599549')" title="Foto de banco (Unsplash) — produto real pendente do ensaio fotográfico da Noni">
+          <a class="foto-link" href="produto.html?produto=top-alca-regulavel" aria-label="Ver Top alça regulável"></a>
           <button class="quick-add"><span>+</span> Adicionar rápido</button>
         </div>
         <div class="card-info">
@@ -149,6 +151,7 @@
       </article>
       <article class="card">
         <div class="card-foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1739945472394-3284ac02996b.jpg?v=1790600125')" title="Foto de banco (Unsplash) — produto real pendente do ensaio fotográfico da Noni">
+          <a class="foto-link" href="produto.html?produto=short-saia" aria-label="Ver Short saia"></a>
           <button class="quick-add"><span>+</span> Adicionar rápido</button>
         </div>
         <div class="card-info">
@@ -159,6 +162,7 @@
       </article>
       <article class="card">
         <div class="card-foto" style="background-image:url('https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1582221012985-e5d3bcfb5699.jpg?v=1790599581')" title="Foto de banco (Unsplash) — produto real pendente do ensaio fotográfico da Noni">
+          <a class="foto-link" href="produto.html?produto=jaqueta-com-capuz" aria-label="Ver Jaqueta com capuz"></a>
           <button class="quick-add"><span>+</span> Adicionar rápido</button>
         </div>
         <div class="card-info">
@@ -296,5 +300,92 @@
 </div>
 
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  // Protótipo de PDP único (ver README) — troca imagem/título/cores conforme
+  // ?produto=<handle> na URL, pra cada card do site poder linkar pro seu produto real.
+  var PRODUTOS = {
+    'top-alcas-finas': { titulo: 'Top alças finas', tipo: 'tops', tipoLabel: 'Tops', novo: true,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1637315041242-b7684c2b1bcf.jpg?v=1790599522',
+      cores: [{ nome: 'Branco', varCor: '--cor-branco', borda: true }] },
+    'top-alca-larga': { titulo: 'Top alça larga', tipo: 'tops', tipoLabel: 'Tops', novo: true,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1674075303920-827a14ccaa46.jpg?v=1790599545',
+      cores: [
+        { nome: 'Branco', varCor: '--cor-branco', borda: true },
+        { nome: 'Preto', varCor: '--cor-preto' },
+        { nome: 'Esmeralda', varCor: '--cor-esmeralda' },
+        { nome: 'Mascavo', varCor: '--cor-mascavo' }
+      ] },
+    'top-alca-regulavel': { titulo: 'Top alça regulável', tipo: 'tops', tipoLabel: 'Tops', novo: false,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1531520563951-4c0e3d3fcacc.jpg?v=1790599549',
+      cores: [{ nome: 'Preto', varCor: '--cor-preto' }] },
+    'top-nadador-trancado': { titulo: 'Top nadador trançado', tipo: 'tops', tipoLabel: 'Tops', novo: false,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1640556531403-45c72a180a13.jpg?v=1790599566',
+      cores: [{ nome: 'Preto', varCor: '--cor-preto' }] },
+    'top-detalhe-busto': { titulo: 'Top detalhe busto', tipo: 'tops', tipoLabel: 'Tops', novo: true,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1720298539797-120259c87c92.jpg?v=1790600122',
+      cores: [
+        { nome: 'Esmeralda', varCor: '--cor-esmeralda' },
+        { nome: 'Mascavo', varCor: '--cor-mascavo' }
+      ] },
+    'short-tule': { titulo: 'Short tule', tipo: 'shorts', tipoLabel: 'Shorts', novo: false,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1571423483570-eb27018d1ec0.jpg?v=1790599714',
+      cores: [{ nome: 'Branco', varCor: '--cor-branco', borda: true }] },
+    'short-saia': { titulo: 'Short saia', tipo: 'shorts', tipoLabel: 'Shorts', novo: false,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1739945472394-3284ac02996b.jpg?v=1790600125',
+      cores: [{ nome: 'Preto', varCor: '--cor-preto' }] },
+    'jaqueta-golfair': { titulo: 'Jaqueta golfair', tipo: 'jaquetas', tipoLabel: 'Jaquetas', novo: true,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1585672221229-70ef2f5b1f5f.jpg?v=1790600130',
+      cores: [{ nome: 'Branco', varCor: '--cor-branco', borda: true }] },
+    'jaqueta-com-capuz': { titulo: 'Jaqueta com capuz', tipo: 'jaquetas', tipoLabel: 'Jaquetas', novo: false,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1582221012985-e5d3bcfb5699.jpg?v=1790599581',
+      cores: [{ nome: 'Preto', varCor: '--cor-preto' }] },
+    'legging': { titulo: 'Legging', tipo: 'leggings', tipoLabel: 'Leggings', novo: true,
+      imagem: 'https://cdn.shopify.com/s/files/1/1032/8889/7717/files/photo-1762331651871-76ae345a365f.jpg?v=1790599584',
+      cores: [
+        { nome: 'Preto', varCor: '--cor-preto' },
+        { nome: 'Esmeralda', varCor: '--cor-esmeralda' },
+        { nome: 'Mascavo', varCor: '--cor-mascavo' }
+      ] }
+  };
+
+  var handle = new URLSearchParams(location.search).get('produto') || 'legging';
+  var p = PRODUTOS[handle] || PRODUTOS.legging;
+
+  document.title = 'Noni — ' + p.titulo + ' (protótipo de PDP)';
+
+  var breadcrumb = document.querySelector('.breadcrumb');
+  if (breadcrumb) {
+    breadcrumb.innerHTML = '<a href="index.html">Home</a> / <a href="colecao.html?tipo=' + p.tipo + '">' + p.tipoLabel + '</a> / ' + p.titulo;
+  }
+
+  var h1 = document.querySelector('.pdp-compra .titulo');
+  if (h1) h1.textContent = p.titulo;
+
+  var badge = document.querySelector('.pdp-compra > .badge');
+  if (badge) badge.style.display = p.novo ? '' : 'none';
+
+  var fotoPrincipal = document.querySelector('.pdp-galeria .foto:first-child');
+  if (fotoPrincipal) {
+    fotoPrincipal.style.backgroundImage = "url('" + p.imagem + "')";
+    fotoPrincipal.setAttribute('title', 'Foto de banco (Unsplash) — produto real pendente do ensaio fotográfico da Noni');
+  }
+
+  var swatches = document.querySelector('.swatches');
+  if (swatches) {
+    if (p.cores.length <= 1) {
+      var opcaoCor = swatches.closest('.opcao-bloco');
+      if (opcaoCor) opcaoCor.style.display = 'none';
+    } else {
+      swatches.innerHTML = p.cores.map(function (c, i) {
+        var borda = c.borda ? '; border:1px solid var(--cinza-borda)' : '';
+        return '<button class="swatch" data-nome-cor="' + c.nome + '" aria-pressed="' + (i === 0 ? 'true' : 'false') + '" aria-label="Cor ' + c.nome + '"><span class="miolo" style="background:var(' + c.varCor + ')' + borda + '"></span></button>';
+      }).join('');
+      var corSelecionada = document.querySelector('[data-cor-selecionada]');
+      if (corSelecionada) corSelecionada.textContent = p.cores[0].nome;
+    }
+  }
+})();
+</script>
 </body>
 </html>
