@@ -109,7 +109,7 @@ header.top>.wrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:cen
 
 /* Hero */
 .hero{position:relative;height:clamp(500px,78vh,840px);overflow:hidden;border-radius:var(--r);margin:12px max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px));background:var(--mist);color:#F5F6F7}
-.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;animation:zoom 14s ease-out both}
+.hero video,.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 18%;animation:zoom 14s ease-out both}
 @keyframes zoom{from{transform:scale(1.06)}}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 40%,rgba(0,0,0,.55))}
 .hero .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;justify-content:flex-end;padding-block:56px}
@@ -609,7 +609,7 @@ const V=$("#view");
 function home(){
   const nov=P.filter(p=>p.tag==="Novo"||p.tag==="Mais vendida");
   return `
-  <section class="hero"><img src="img/ex36.jpg" alt="Modelo com conjunto petróleo e boné branco num terraço ao sol" fetchpriority="high">
+  <section class="hero"><video autoplay muted loop playsinline preload="auto" poster="img/ex36.jpg" aria-label="Modelos com a coleção Noni em movimento"><source src="vid/hero.mp4" type="video/mp4"></video>
     <div class="wrap"><span class="kicker">Coleção 01 · Primavera 2026</span><h1>Do treino<br>à <em>cidade</em>.</h1>
       <div class="row"><a class="btn light" href="#colecao-novidades">Ver a coleção</a><a class="btn light" style="background:transparent;color:#F5F6F7" href="#colecao-conjuntos">Conjuntos</a></div></div>
     <p class="side">Peças de compressão com brilho acetinado, em cinco cores pensadas para combinar entre si.</p>
