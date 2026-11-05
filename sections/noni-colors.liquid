@@ -1,0 +1,35 @@
+<section class="blk" style="padding-top:0"><div class="wrap">
+  <div class="head"><div><h2>{{ section.settings.title }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}</div></div>
+  <div class="colors">
+    {%- for block in section.blocks -%}
+      {%- assign col = block.settings.collection -%}
+      {%- capture hex %}{% render 'noni-color', name: block.settings.name %}{% endcapture -%}
+      <a href="{{ col.url | default: '#' }}" {{ block.shopify_attributes }}>
+        <span class="chip"><img loading="lazy" src="{{ block.settings.image | asset_url }}" alt=""><i style="background:{{ hex | strip }}"></i></span>
+        <span>{{ block.settings.name | default: col.title }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</div></section>
+
+{% schema %}
+{
+  "name": "Compre por cor",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Compre por cor" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Tons que se combinam. Monte o conjunto inteiro na mesma cor ou misture." }
+  ],
+  "blocks": [
+    {
+      "type": "cor",
+      "name": "Cor",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nome da cor", "default": "Preto" },
+        { "type": "collection", "id": "collection", "label": "Coleção da cor" },
+        { "type": "text", "id": "image", "label": "Imagem (arquivo em assets)", "default": "st01.jpg" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Compre por cor" }]
+}
+{% endschema %}

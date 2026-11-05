@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "noni-product",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

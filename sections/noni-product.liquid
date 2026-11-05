@@ -1,0 +1,132 @@
+{%- liquid
+  assign current = product.selected_or_first_available_variant
+  assign rel_col = nil
+  for c in product.collections
+    unless c.handle == 'frontpage' or c.handle == 'all'
+      if rel_col == nil
+        assign rel_col = c
+      endif
+    endunless
+  endfor
+  assign badge = ''
+  if product.tags contains 'Mais vendida'
+    assign badge = 'Mais vendida'
+  else
+    assign created = product.created_at | date: '%s' | plus: 0
+    assign now_ts = 'now' | date: '%s' | plus: 0
+    assign age_days = now_ts | minus: created | divided_by: 86400
+    if age_days <= 30
+      assign badge = 'Novo'
+    endif
+  endif
+-%}
+<div class="wrap">
+  <nav class="crumbs" aria-label="Você está em"><a href="{{ routes.root_url }}">Início</a><span>/</span>{% if rel_col %}<a href="{{ rel_col.url }}">{{ rel_col.title }}</a><span>/</span>{% endif %}<span>{{ product.title }}</span></nav>
+  <div class="pdp" data-pdp>
+    <div class="gal" id="gal">
+      {%- if product.images.size > 0 -%}
+        <div class="thumbs" role="tablist" aria-label="Fotos do produto">
+          {%- for img in product.images -%}
+            <button type="button" data-i="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Ver foto {{ forloop.index }}"><img src="{{ img | image_url: width: 200 }}" alt="" loading="lazy" width="{{ img.width }}" height="{{ img.height }}"></button>
+          {%- endfor -%}
+        </div>
+        <div class="gmain">
+          <img id="mainImg" src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}" width="{{ product.featured_image.width }}" height="{{ product.featured_image.height }}" fetchpriority="high">
+          {%- if product.images.size > 1 -%}
+            <button type="button" class="nav2 prev" data-step="-1" aria-label="Foto anterior"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+            <button type="button" class="nav2 next" data-step="1" aria-label="Próxima foto"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+          {%- endif -%}
+          <span class="idx" id="gIdx">1 / {{ product.images.size }}</span>
+        </div>
+        <script type="application/json" id="pdpImages">[{%- for img in product.images -%}{"id":{{ img.id }},"src":{{ img | image_url: width: 1200 | json }},"alt":{{ product.title | json }}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]</script>
+      {%- else -%}
+        <div class="gmain" style="display:grid;place-items:center;color:var(--steel);font-size:13px;text-align:center;padding:24px">Foto em breve</div>
+      {%- endif -%}
+    </div>
+
+    <div class="buy">
+      <div style="display:grid;gap:10px">
+        {%- if badge != blank %}<span class="label" style="color:var(--steel)">{{ badge }}</span>{% endif -%}
+        <h1>{{ product.title }}</h1>
+        <div class="pr"><b id="pdpPrice">{% render 'noni-price', price: current.price, compare: current.compare_at_price %}</b><span id="pdpInstall"></span></div>
+      </div>
+
+      {%- form 'product', product, id: 'pdpForm' -%}
+        <input type="hidden" name="id" value="{{ current.id }}" id="pdpVariantId">
+        <div style="display:grid;gap:22px">
+          {%- for option in product.options_with_values -%}
+            {%- if option.values.size == 1 and option.values.first == 'Default Title' -%}{%- continue -%}{%- endif -%}
+            {%- assign oi = forloop.index0 -%}
+            {%- assign sel = current.options[oi] -%}
+            <div class="opt" data-option="{{ oi }}">
+              <div class="lb"><span>{{ option.name }}: <b data-opt-label>{{ sel }}</b></span>{% if option.name == 'Tamanho' %}<a href="/pages/guia-de-tamanhos">Guia de medidas</a>{% endif %}</div>
+              {%- if option.name == 'Cor' -%}
+                <div class="big-sw">
+                  {%- for val in option.values -%}
+                    {%- assign vimg = nil -%}
+                    {%- for v in product.variants -%}{%- if v.options[oi] == val and vimg == nil and v.featured_image -%}{%- assign vimg = v.featured_image -%}{%- endif -%}{%- endfor -%}
+                    {%- capture hex %}{% render 'noni-color', name: val %}{% endcapture -%}
+                    <button type="button" data-value="{{ val | escape }}" aria-pressed="{% if val == sel %}true{% else %}false{% endif %}" aria-label="{{ val | escape }}">{% if vimg %}<img src="{{ vimg | image_url: width: 160 }}" alt="" loading="lazy">{% else %}<i style="background:{{ hex | strip }}"></i>{% endif %}</button>
+                  {%- endfor -%}
+                </div>
+              {%- else -%}
+                <div class="sizes">
+                  {%- for val in option.values -%}
+                    <button type="button" data-value="{{ val | escape }}" aria-pressed="{% if val == sel %}true{% else %}false{% endif %}">{{ val }}</button>
+                  {%- endfor -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+          <div class="hint" id="pdpHint" role="status"></div>
+          <div class="addrow">
+            <button type="submit" class="btn" id="addBtn" {% unless current.available %}disabled{% endunless %}>{% if current.available %}Adicionar à sacola{% else %}Esgotado{% endif %}</button>
+            <button type="button" class="heartb" data-fav="{{ product.handle }}" aria-pressed="false" aria-label="Favoritar {{ product.title | escape }}">{% render 'noni-heart' %}</button>
+          </div>
+        </div>
+      {%- endform -%}
+      <script type="application/json" id="pdpVariants">{{ product.variants | json }}</script>
+
+      <div class="perks">
+        {%- if section.settings.perk_1 != blank %}<div><svg viewBox="0 0 24 24"><path d="M3 6h11v10H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.5"/><circle cx="17" cy="17.5" r="1.5"/></svg>{{ section.settings.perk_1 }}</div>{% endif -%}
+        {%- if section.settings.perk_2 != blank %}<div><svg viewBox="0 0 24 24"><path d="M4 8h14l-3-3M20 16H6l3 3"/></svg>{{ section.settings.perk_2 }}</div>{% endif -%}
+        {%- if section.settings.perk_3 != blank %}<div><svg viewBox="0 0 24 24"><path d="M12 3l9 9-9 9-9-9z"/></svg>{{ section.settings.perk_3 }}</div>{% endif -%}
+      </div>
+
+      <div>
+        <details class="acc" open><summary>Descrição</summary><div>{% if product.description != blank %}{{ product.description }}{% else %}<p style="margin:0">Descrição em breve.</p>{% endif %}</div></details>
+        {%- if section.settings.fabric != blank -%}<details class="acc"><summary>Tecido e cuidados</summary><div><p style="margin:0">{{ section.settings.fabric }}</p></div></details>{%- endif -%}
+        {%- if section.settings.model != blank -%}<details class="acc"><summary>Medidas da modelo</summary><div><p style="margin:0">{{ section.settings.model }}</p></div></details>{%- endif -%}
+        {%- if section.settings.shipping != blank -%}<details class="acc"><summary>Entrega e trocas</summary><div><p style="margin:0">{{ section.settings.shipping }}</p><p style="margin:0"><a href="/pages/trocas-e-devolucoes" class="link">Política de trocas e devoluções</a></p></div></details>{%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if rel_col -%}
+    <section class="blk" style="padding-top:24px">
+      <div class="head"><div><h2>Complete o look</h2></div></div>
+      <div class="grid">
+        {%- assign shown = 0 -%}
+        {%- for p in rel_col.products -%}
+          {%- if p.id != product.id and shown < 4 -%}{% render 'noni-card', product: p %}{%- assign shown = shown | plus: 1 -%}{%- endif -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Produto",
+  "settings": [
+    { "type": "header", "content": "Destaques (textos provisórios do protótipo — validar com a Noni)" },
+    { "type": "text", "id": "perk_1", "label": "Destaque 1", "default": "Frete grátis acima de R$ 499 · envio em até 2 dias úteis" },
+    { "type": "text", "id": "perk_2", "label": "Destaque 2", "default": "Primeira troca grátis em até 30 dias" },
+    { "type": "text", "id": "perk_3", "label": "Destaque 3", "default": "5% de desconto no Pix" },
+    { "type": "header", "content": "Abas de detalhes" },
+    { "type": "textarea", "id": "fabric", "label": "Tecido e cuidados", "default": "Composição e instruções de lavagem a confirmar com a Noni." },
+    { "type": "textarea", "id": "model", "label": "Medidas da modelo", "default": "Medidas da modelo a confirmar no ensaio." },
+    { "type": "textarea", "id": "shipping", "label": "Entrega e trocas", "default": "Envio para todo o Brasil. Prazo e valor calculados pelo CEP no checkout." }
+  ]
+}
+{% endschema %}

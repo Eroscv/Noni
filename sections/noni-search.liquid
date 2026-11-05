@@ -1,0 +1,30 @@
+<div class="wrap">
+  <nav class="crumbs" aria-label="Você está em"><a href="{{ routes.root_url }}">Início</a><span>/</span><span>Busca</span></nav>
+  <div class="ctitle"><h1>Busca</h1><p>{% if search.performed %}{{ search.results_count }} resultado{% if search.results_count != 1 %}s{% endif %} para “{{ search.terms | escape }}”.{% else %}Digite o que procura.{% endif %}</p></div>
+  <form action="{{ routes.search_url }}" method="get" role="search" class="field" style="max-width:520px;margin-bottom:32px">
+    <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Buscar legging, top, preto…" aria-label="Buscar">
+    <input type="hidden" name="type" value="product">
+    <button type="submit">Buscar</button>
+  </form>
+  {%- if search.performed -%}
+    {%- paginate search.results by 24 -%}
+      {%- if search.results.size == 0 -%}
+        <div class="empty"><span class="serif" style="font-size:30px;color:var(--ink)">Nada encontrado</span><span>Tente outra palavra, como “legging” ou “preto”.</span><a class="btn" href="/collections/all">Ver a coleção</a></div>
+      {%- else -%}
+        <div class="grid">{%- for r in search.results -%}{%- if r.object_type == 'product' -%}{% render 'noni-card', product: r %}{%- endif -%}{%- endfor -%}</div>
+        {%- if paginate.pages > 1 -%}
+          <nav class="pagination" aria-label="Paginação">
+            {%- if paginate.previous %}<a href="{{ paginate.previous.url }}">←</a>{% endif -%}
+            {%- for part in paginate.parts -%}{%- if part.is_link %}<a href="{{ part.url }}">{{ part.title }}</a>{% elsif part.title == paginate.current_page %}<span class="current">{{ part.title }}</span>{% else %}<span>{{ part.title }}</span>{% endif -%}{%- endfor -%}
+            {%- if paginate.next %}<a href="{{ paginate.next.url }}">→</a>{% endif -%}
+          </nav>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endpaginate -%}
+  {%- endif -%}
+  <div style="height:64px"></div>
+</div>
+
+{% schema %}
+{ "name": "Busca", "settings": [] }
+{% endschema %}

@@ -1,0 +1,6 @@
+{%- comment -%} Uso: render 'noni-price', price: cents, compare: cents {%- endcomment -%}
+{%- if price > 0 -%}
+  {%- if compare > price -%}<s>{{ compare | money }}</s> {% endif -%}{{ price | money }}
+{%- else -%}
+  <span class="tbd">Preço a definir</span>
+{%- endif -%}

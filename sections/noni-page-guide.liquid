@@ -1,0 +1,44 @@
+<div class="wrap" style="max-width:900px">
+  <nav class="crumbs" aria-label="Você está em"><a href="{{ routes.root_url }}">Início</a><span>/</span><span>{{ page.title }}</span></nav>
+  <div class="ctitle"><h1>{{ page.title }}</h1><p>{{ section.settings.intro }}</p></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Tamanho</th><th>Busto</th><th>Cintura</th><th>Quadril</th></tr></thead>
+    <tbody>
+      {%- for block in section.blocks -%}
+        <tr {{ block.shopify_attributes }}><th scope="row">{{ block.settings.size }}</th><td>{{ block.settings.bust | default: 'a definir' }}</td><td>{{ block.settings.waist | default: 'a definir' }}</td><td>{{ block.settings.hip | default: 'a definir' }}</td></tr>
+      {%- endfor -%}
+    </tbody>
+  </table></div>
+  <section class="blk" style="padding-top:40px">
+    <div class="head"><div><h2>Como medir</h2></div></div>
+    <div class="vals" style="border:0">
+      <div><b>Busto</b><span>Na parte mais cheia, com a fita reta nas costas.</span></div>
+      <div><b>Cintura</b><span>Na parte mais fina do tronco, acima do umbigo.</span></div>
+      <div><b>Quadril</b><span>Na parte mais larga, com os pés juntos.</span></div>
+      <div><b>Entre dois tamanhos</b><span>Nas peças de compressão, escolha o maior.</span></div>
+    </div>
+  </section>
+  <div class="richtext">{{ page.content }}</div>
+</div>
+
+{% schema %}
+{
+  "name": "Guia de medidas",
+  "settings": [
+    { "type": "textarea", "id": "intro", "label": "Introdução", "default": "Medidas do corpo em centímetros. A tabela oficial da Coleção 01 ainda será enviada pela Noni." }
+  ],
+  "blocks": [
+    {
+      "type": "linha",
+      "name": "Tamanho",
+      "settings": [
+        { "type": "text", "id": "size", "label": "Tamanho", "default": "PP" },
+        { "type": "text", "id": "bust", "label": "Busto (cm)" },
+        { "type": "text", "id": "waist", "label": "Cintura (cm)" },
+        { "type": "text", "id": "hip", "label": "Quadril (cm)" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Guia de medidas" }]
+}
+{% endschema %}

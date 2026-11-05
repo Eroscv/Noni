@@ -1,0 +1,32 @@
+<section class="vband" aria-label="{{ section.settings.title | escape }}">
+  {%- if section.settings.video_url != blank -%}
+    <video id="vid" autoplay muted loop playsinline preload="metadata" poster="{{ section.settings.poster | asset_url }}" aria-hidden="true"><source src="{{ section.settings.video_url }}" type="video/mp4"></video>
+  {%- else -%}
+    <img src="{{ section.settings.poster | asset_url }}" alt="">
+  {%- endif -%}
+  <div class="cap">
+    <span class="label" style="opacity:.85">{{ section.settings.label }}</span>
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.text }}</p>
+    {%- if section.settings.link_label != blank %}<a class="link" href="{{ section.settings.link_url | default: '/collections/jaquetas' }}">{{ section.settings.link_label }}</a>{% endif -%}
+  </div>
+  {%- if section.settings.video_url != blank -%}
+    <button type="button" class="pp" id="vidBtn" aria-label="Pausar vídeo"><svg viewBox="0 0 24 24" id="vidIco"><path d="M7 5h3v14H7zM14 5h3v14h-3z"/></svg></button>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Banner de vídeo",
+  "settings": [
+    { "type": "text", "id": "video_url", "label": "URL do vídeo (mp4)" },
+    { "type": "text", "id": "poster", "label": "Imagem de capa (arquivo em assets)", "default": "meio-poster.jpg" },
+    { "type": "text", "id": "label", "label": "Sobretítulo", "default": "Jaqueta Corta-Vento" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Leve no treino. Pronta para a rua." },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "Bolsos utilitários, punhos com elástico e o bordado Noni no peito." },
+    { "type": "text", "id": "link_label", "label": "Texto do link", "default": "Descobrir" },
+    { "type": "url", "id": "link_url", "label": "Link" }
+  ],
+  "presets": [{ "name": "Banner de vídeo" }]
+}
+{% endschema %}

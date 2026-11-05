@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "noni-cart",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

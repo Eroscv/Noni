@@ -1,0 +1,41 @@
+{
+  "sections": {
+    "main": {
+      "type": "noni-page-about",
+      "settings": {
+        "btn_url": "/collections/all"
+      },
+      "blocks": {
+        "b1": {
+          "type": "foto",
+          "settings": {
+            "image": "ex29.jpg",
+            "alt": "Conjunto bronze descendo a escada"
+          }
+        },
+        "b2": {
+          "type": "foto",
+          "settings": {
+            "image": "st27.jpg",
+            "alt": "Dupla abraçada no estúdio"
+          }
+        },
+        "b3": {
+          "type": "foto",
+          "settings": {
+            "image": "ex32.jpg",
+            "alt": "Look preto saindo do café"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

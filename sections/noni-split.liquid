@@ -1,0 +1,36 @@
+<section class="blk"><div class="wrap"><div class="split" id="split">
+  <div class="list">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.url | default: '#' }}" data-pic="{{ forloop.index0 }}" class="{% if forloop.first %}on{% endif %}" {{ block.shopify_attributes }}>{{ block.settings.title }}{% if block.settings.count != blank %}<sup>{{ block.settings.count }}</sup>{% endif %}</a>
+    {%- endfor -%}
+    {%- if section.settings.btn_label != blank %}<a class="btn ghost" href="{{ section.settings.btn_url | default: '/collections/all' }}" style="color:var(--ink)">{{ section.settings.btn_label }}</a>{% endif -%}
+  </div>
+  <div class="pic2">
+    {%- for block in section.blocks -%}
+      <img loading="lazy" src="{{ block.settings.image | asset_url }}" alt="" class="{% if forloop.first %}on{% endif %}">
+    {%- endfor -%}
+  </div>
+</div></div></section>
+
+{% schema %}
+{
+  "name": "Categorias em lista",
+  "settings": [
+    { "type": "text", "id": "btn_label", "label": "Botão — texto", "default": "Ver a coleção" },
+    { "type": "url", "id": "btn_url", "label": "Botão — link" }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Categoria",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Nome", "default": "Tops" },
+        { "type": "text", "id": "count", "label": "Número (opcional)" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "text", "id": "image", "label": "Imagem (arquivo em assets)", "default": "st17.jpg" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Categorias em lista" }]
+}
+{% endschema %}

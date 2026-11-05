@@ -1,0 +1,23 @@
+<section class="blk"><div class="wrap news">
+  <div><span class="label" style="color:var(--steel)">{{ section.settings.label }}</span><h2 style="margin-top:10px">{{ section.settings.title }}</h2></div>
+  {%- form 'customer', id: 'noni-home-news' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+    <div class="field"><input name="contact[email]" type="email" placeholder="Seu melhor e-mail" required aria-label="E-mail" autocomplete="email"><button type="submit">{{ section.settings.button }}</button></div>
+    {%- if form.posted_successfully? -%}<p class="note form-ok">Pronto. Você está na lista.</p>
+    {%- elsif form.errors -%}<p class="note form-err">Não foi possível cadastrar agora. Confira o e-mail e tente novamente.</p>
+    {%- else -%}<p class="note">{{ section.settings.note }}</p>{%- endif -%}
+  {%- endform -%}
+</div></section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Sobretítulo", "default": "Noni Club" },
+    { "type": "text", "id": "title", "label": "Título", "default": "Receba lançamentos em primeira mão." },
+    { "type": "text", "id": "button", "label": "Botão", "default": "Quero receber" },
+    { "type": "text", "id": "note", "label": "Nota", "default": "Sem spam. Só lançamentos e reposições." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

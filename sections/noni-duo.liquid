@@ -1,0 +1,31 @@
+<section class="blk" style="padding-top:0"><div class="wrap"><div class="duo">
+  {%- for block in section.blocks -%}
+    <a href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+      <img loading="lazy" src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.alt | escape }}" style="object-position:{{ block.settings.position }}">
+      <div><h3>{{ block.settings.title }}</h3>{% if block.settings.small != blank %}<small>{{ block.settings.small }}</small>{% endif %}<u>{{ block.settings.cta }}</u></div>
+    </a>
+  {%- endfor -%}
+</div></div></section>
+
+{% schema %}
+{
+  "name": "Banners duplos",
+  "max_blocks": 2,
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        { "type": "text", "id": "image", "label": "Imagem (arquivo em assets)", "default": "st06.jpg" },
+        { "type": "text", "id": "alt", "label": "Texto alternativo" },
+        { "type": "text", "id": "position", "label": "Enquadramento (CSS object-position)", "default": "50% 50%" },
+        { "type": "text", "id": "title", "label": "Título", "default": "Legging" },
+        { "type": "text", "id": "small", "label": "Subtítulo" },
+        { "type": "text", "id": "cta", "label": "Chamada", "default": "COMPRAR" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Banners duplos", "blocks": [{ "type": "banner" }, { "type": "banner" }] }]
+}
+{% endschema %}

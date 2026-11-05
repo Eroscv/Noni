@@ -1,0 +1,68 @@
+<div class="bar"><div class="wrap">
+  {%- if section.settings.bar_1 != blank %}<span>{{ section.settings.bar_1 }}</span>{% endif -%}
+  {%- if section.settings.bar_2 != blank %}<span>{{ section.settings.bar_2 }}</span>{% endif -%}
+  {%- if section.settings.bar_3 != blank %}<span>{{ section.settings.bar_3 }}</span>{% endif -%}
+</div></div>
+
+<header class="top" id="top" data-free="{{ section.settings.free_shipping | times: 100 }}">
+  <div class="wrap">
+    <div style="display:flex;align-items:center">
+      <button type="button" class="icon burger" id="burgerBtn" aria-label="Abrir menu"><svg viewBox="0 0 24 24"><path d="M3 7h18M3 12h18M3 17h18"/></svg></button>
+      <nav class="nav" aria-label="Principal">
+        <a href="/collections/novidades" {% if collection.handle == 'novidades' %}aria-current="true"{% endif %}>Novidades</a>
+        <button type="button" id="shopBtn" aria-expanded="false" aria-controls="mega">Shop</button>
+        <a href="/pages/conjuntos" {% if page.handle == 'conjuntos' %}aria-current="true"{% endif %}>Conjuntos</a>
+        <a href="/pages/sobre" {% if page.handle == 'sobre' %}aria-current="true"{% endif %}>A Noni</a>
+      </nav>
+    </div>
+    <a href="{{ routes.root_url }}" class="wordmark" aria-label="Noni, página inicial">{% render 'noni-logo' %}</a>
+    <div class="icons">
+      <button type="button" class="icon" id="themeBtn" aria-label="Mudar para versão escura" title="Versão clara / escura"><svg viewBox="0 0 24 24" id="themeIco"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+      <button type="button" class="icon" id="searchBtn" aria-label="Buscar"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.2-4.2"/></svg></button>
+      <button type="button" class="icon" id="favBtn" aria-label="Favoritos"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span class="count" id="favCount" data-n="0">0</span></button>
+      <a class="icon" href="{{ routes.cart_url }}" id="cartBtn" aria-label="Abrir sacola"><svg viewBox="0 0 24 24"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><span class="count" id="cartCount" data-n="{{ cart.item_count }}">{{ cart.item_count }}</span></a>
+    </div>
+  </div>
+  <div class="mega" id="mega">
+    <div class="wrap">
+      <div><h4>Categorias</h4><ul>
+        <li><a href="/collections/all">Ver tudo</a></li>
+        <li><a href="/collections/tops">Tops</a></li>
+        <li><a href="/collections/leggings">Leggings</a></li>
+        <li><a href="/collections/shorts">Shorts</a></li>
+        <li><a href="/collections/jaquetas">Jaquetas</a></li>
+        <li><a href="/collections/acessorios">Acessórios</a></li>
+        <li><a href="/pages/conjuntos">Conjuntos</a></li>
+      </ul></div>
+      <div><h4>Por cor</h4><ul>
+        {%- for h in 'preto,branco,esmeralda,mascavo' split: ',' -%}
+          {%- assign col = collections[h] -%}
+          {%- capture hex %}{% render 'noni-color', name: h %}{% endcapture -%}
+          <li><a href="/collections/{{ h }}"><span class="dot" style="background:{{ hex | strip }}"></span>{{ col.title | default: h | capitalize }}</a></li>
+        {%- endfor -%}
+      </ul></div>
+      <div><h4>Ajuda</h4><ul>
+        <li><a href="/collections/novidades">Novidades</a></li>
+        <li><a href="/pages/guia-de-tamanhos">Guia de medidas</a></li>
+        <li><a href="/pages/trocas-e-devolucoes">Trocas e devoluções</a></li>
+      </ul></div>
+      <a class="promo" href="/pages/conjuntos"><img src="{{ section.settings.promo_img | default: 'ex35.jpg' | asset_url }}" alt="" loading="lazy"><span>{{ section.settings.promo_text }}</span></a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Cabeçalho",
+  "settings": [
+    { "type": "header", "content": "Barra de avisos (textos provisórios do protótipo — validar com a Noni)" },
+    { "type": "text", "id": "bar_1", "label": "Aviso 1", "default": "Frete grátis acima de R$ 499" },
+    { "type": "text", "id": "bar_2", "label": "Aviso 2", "default": "Primeira troca grátis em até 30 dias" },
+    { "type": "text", "id": "bar_3", "label": "Aviso 3", "default": "Pix com 5% off" },
+    { "type": "number", "id": "free_shipping", "label": "Meta de frete grátis na sacola (R$, 0 desliga) — provisório", "default": 499 },
+    { "type": "header", "content": "Menu Shop" },
+    { "type": "text", "id": "promo_img", "label": "Imagem do destaque (arquivo em assets)", "default": "ex35.jpg" },
+    { "type": "text", "id": "promo_text", "label": "Texto do destaque", "default": "Conjuntos que saem do treino" }
+  ]
+}
+{% endschema %}

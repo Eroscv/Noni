@@ -1,0 +1,36 @@
+<section class="hero">
+  {%- if section.settings.video_url != blank -%}
+    <video class="bgv" autoplay muted loop playsinline preload="auto" poster="{{ section.settings.poster | asset_url }}" aria-hidden="true"><source src="{{ section.settings.video_url }}" type="video/mp4"></video>
+  {%- else -%}
+    <img src="{{ section.settings.poster | asset_url }}" alt="" fetchpriority="high">
+  {%- endif -%}
+  <div class="wrap">
+    <span class="kicker">{{ section.settings.kicker }}</span>
+    <h1>{{ section.settings.line1 }}<br>{{ section.settings.line2_pre }} <em>{{ section.settings.line2_em }}</em>.</h1>
+    <div class="row">
+      {%- if section.settings.btn1_label != blank %}<a class="btn light" href="{{ section.settings.btn1_url | default: '/collections/novidades' }}">{{ section.settings.btn1_label }}</a>{% endif -%}
+      {%- if section.settings.btn2_label != blank %}<a class="btn light" style="background:transparent;color:#F5F6F7" href="{{ section.settings.btn2_url | default: '/pages/conjuntos' }}">{{ section.settings.btn2_label }}</a>{% endif -%}
+    </div>
+  </div>
+  {%- if section.settings.side != blank %}<p class="side">{{ section.settings.side }}</p>{% endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Hero com vídeo",
+  "settings": [
+    { "type": "text", "id": "video_url", "label": "URL do vídeo (mp4)" },
+    { "type": "text", "id": "poster", "label": "Imagem de capa (arquivo em assets)", "default": "hero-poster.jpg" },
+    { "type": "text", "id": "kicker", "label": "Sobretítulo", "default": "Coleção 01 · Primavera 2026" },
+    { "type": "text", "id": "line1", "label": "Título — linha 1", "default": "Do treino" },
+    { "type": "text", "id": "line2_pre", "label": "Título — linha 2 (início)", "default": "à" },
+    { "type": "text", "id": "line2_em", "label": "Título — palavra em itálico", "default": "cidade" },
+    { "type": "text", "id": "btn1_label", "label": "Botão 1 — texto", "default": "Ver a coleção" },
+    { "type": "url", "id": "btn1_url", "label": "Botão 1 — link" },
+    { "type": "text", "id": "btn2_label", "label": "Botão 2 — texto", "default": "Conjuntos" },
+    { "type": "url", "id": "btn2_url", "label": "Botão 2 — link" },
+    { "type": "textarea", "id": "side", "label": "Texto lateral (desktop)", "default": "Peças de compressão com brilho acetinado, em cinco cores pensadas para combinar entre si." }
+  ],
+  "presets": [{ "name": "Hero com vídeo" }]
+}
+{% endschema %}

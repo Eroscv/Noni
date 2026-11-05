@@ -1,0 +1,52 @@
+<!-- Sacola (preenchida por noni.js a partir de /cart.js) -->
+<div class="drawer right" id="cart" aria-hidden="true">
+  <div class="shade" data-close></div>
+  <aside class="panel" role="dialog" aria-label="Sacola">
+    <div class="ph"><span class="label">Sacola (<span id="cartN">{{ cart.item_count }}</span>)</span><button type="button" class="icon" data-close aria-label="Fechar sacola"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="pb"><div class="ship" id="shipBox"></div><div id="cartLines"></div></div>
+    <div class="pf" id="cartFoot"></div>
+  </aside>
+</div>
+
+<!-- Favoritos (guardados neste navegador) -->
+<div class="drawer right" id="favs" aria-hidden="true">
+  <div class="shade" data-close></div>
+  <aside class="panel" role="dialog" aria-label="Favoritos">
+    <div class="ph"><span class="label">Favoritos</span><button type="button" class="icon" data-close aria-label="Fechar favoritos"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="pb"><p class="fav-note">As peças que você salvou ficam guardadas neste navegador.</p><div id="favList"></div></div>
+  </aside>
+</div>
+
+<!-- Menu mobile -->
+<div class="drawer left" id="mnav" aria-hidden="true">
+  <div class="shade" data-close></div>
+  <aside class="panel" role="dialog" aria-label="Menu">
+    <div class="ph"><span class="wordmark" aria-label="Noni">{% render 'noni-logo' %}</span><button type="button" class="icon" data-close aria-label="Fechar menu"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+    <div class="pb"><nav class="mnav">
+      <a href="/collections/novidades">Novidades</a>
+      <details open><summary>Shop <span>+</span></summary>
+        <a href="/collections/all">Ver tudo</a><a href="/collections/tops">Tops</a><a href="/collections/leggings">Leggings</a><a href="/collections/shorts">Shorts</a><a href="/collections/jaquetas">Jaquetas</a><a href="/collections/acessorios">Acessórios</a></details>
+      <a href="/pages/conjuntos">Conjuntos</a>
+      <details><summary>Por cor <span>+</span></summary><div>
+        {%- for h in 'preto,branco,esmeralda,mascavo' split: ',' -%}
+          {%- capture hex %}{% render 'noni-color', name: h %}{% endcapture -%}
+          <a href="/collections/{{ h }}"><span class="dot" style="background:{{ hex | strip }}"></span>{{ collections[h].title | default: h | capitalize }}</a>
+        {%- endfor -%}
+      </div></details>
+      <a href="/pages/sobre">A Noni</a><a href="/pages/guia-de-tamanhos">Guia de medidas</a><a href="/pages/trocas-e-devolucoes">Trocas</a>
+    </nav></div>
+  </aside>
+</div>
+
+<!-- Busca -->
+<div class="search" id="search" role="dialog" aria-label="Busca">
+  <form class="wrap bar2" action="{{ routes.search_url }}" method="get" role="search">
+    <input id="q" name="q" type="search" placeholder="Buscar legging, top, preto…" aria-label="Buscar produtos" autocomplete="off">
+    <input type="hidden" name="type" value="product">
+    <button type="button" class="icon" id="closeSearch" aria-label="Fechar busca"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </form>
+  <div class="res wrap" id="qres"></div>
+</div>
+
+<div class="lightbox" id="lb"><button type="button" class="icon" id="lbClose" aria-label="Fechar imagem"><svg viewBox="0 0 24 24" style="stroke:#F5F6F7"><path d="M6 6l12 12M18 6L6 18"/></svg></button><img id="lbImg" alt=""></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>

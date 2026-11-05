@@ -1,0 +1,46 @@
+<section class="edit" style="margin-top:0">
+  <div class="img"><img src="{{ section.settings.image | asset_url }}" alt="{{ section.settings.alt | escape }}" style="object-position:{{ section.settings.position }}"></div>
+  <div class="txt">
+    <span class="label" style="opacity:.6">{{ section.settings.label }}</span>
+    <h2>{{ section.settings.title_1 }} <em>{{ section.settings.title_em }}</em> {{ section.settings.title_2 }}</h2>
+    <p>{{ section.settings.text }}</p>
+    {%- if section.settings.note != blank %}<p style="font-size:13px">{{ section.settings.note }}</p>{% endif -%}
+    <a class="btn" href="{{ section.settings.btn_url | default: '/collections/all' }}">{{ section.settings.btn_label }}</a>
+  </div>
+</section>
+<section class="blk"><div class="wrap"><div class="look">
+  {%- for block in section.blocks limit: 3 -%}
+    {%- assign cls = 'a' -%}{%- if forloop.index == 2 -%}{%- assign cls = 'b' -%}{%- elsif forloop.index == 3 -%}{%- assign cls = 'c' -%}{%- endif -%}
+    <figure class="{{ cls }}" {{ block.shopify_attributes }}><img loading="lazy" src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.alt | escape }}"></figure>
+  {%- endfor -%}
+</div></div></section>
+
+{% schema %}
+{
+  "name": "Sobre a Noni",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "image", "label": "Imagem (arquivo em assets)", "default": "a-noni.jpg" },
+    { "type": "text", "id": "alt", "label": "Texto alternativo", "default": "Duas mulheres caminhando e rindo em frente a um prédio de vidro escuro, uma de conjunto branco e outra de preto" },
+    { "type": "text", "id": "position", "label": "Enquadramento (CSS object-position)", "default": "40% 50%" },
+    { "type": "text", "id": "label", "label": "Sobretítulo", "default": "A Noni" },
+    { "type": "text", "id": "title_1", "label": "Título — início", "default": "Roupa de treino que" },
+    { "type": "text", "id": "title_em", "label": "Título — itálico", "default": "não pede" },
+    { "type": "text", "id": "title_2", "label": "Título — fim", "default": "licença para sair de casa." },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "A Noni nasceu em Santa Catarina para mulheres que vão do treino ao trabalho, ao café e de volta sem trocar de roupa. A Coleção 01 tem cores e peças que se combinam entre si." },
+    { "type": "text", "id": "note", "label": "Nota interna visível", "default": "Texto institucional provisório, a validar com a fundadora." },
+    { "type": "text", "id": "btn_label", "label": "Botão", "default": "Ver a coleção" },
+    { "type": "url", "id": "btn_url", "label": "Link do botão" }
+  ],
+  "blocks": [
+    {
+      "type": "foto",
+      "name": "Foto",
+      "settings": [
+        { "type": "text", "id": "image", "label": "Imagem (arquivo em assets)", "default": "ex29.jpg" },
+        { "type": "text", "id": "alt", "label": "Texto alternativo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

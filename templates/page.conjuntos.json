@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "main": {
+      "type": "noni-tiles",
+      "settings": {
+        "title": "Conjuntos",
+        "text": "As peças combinadas, por cor.",
+        "link_label": "",
+        "flush": false
+      },
+      "blocks": {
+        "b1": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-branco",
+            "image": "st24.jpg"
+          }
+        },
+        "b2": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-preto",
+            "image": "st00.jpg"
+          }
+        },
+        "b3": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-esmeralda",
+            "image": "st04.jpg"
+          }
+        },
+        "b4": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-mascavo",
+            "image": "st08.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,54 @@
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <h5>{{ section.settings.news_title }}</h5>
+        <p style="margin:0 0 16px;max-width:36ch;opacity:.8;font-size:14px">{{ section.settings.news_text }}</p>
+        {%- form 'customer', id: 'noni-foot-news' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="field" style="border-color:currentColor">
+            <input name="contact[email]" type="email" placeholder="seu e-mail" required aria-label="E-mail" style="color:inherit" autocomplete="email">
+            <button type="submit">Assinar</button>
+          </div>
+          {%- if form.posted_successfully? -%}<p class="note" style="color:inherit;opacity:.8">Inscrição feita. Até a próxima novidade.</p>{%- endif -%}
+          {%- if form.errors -%}<p class="note" style="color:inherit">Não foi possível cadastrar agora. Confira o e-mail e tente novamente.</p>{%- endif -%}
+        {%- endform -%}
+      </div>
+      <div><h5>Loja</h5><ul>
+        <li><a href="/collections/novidades">Novidades</a></li>
+        <li><a href="/pages/conjuntos">Conjuntos</a></li>
+        <li><a href="/collections/all">Ver tudo</a></li>
+        <li><a href="/collections/acessorios">Acessórios</a></li>
+      </ul></div>
+      <div><h5>Ajuda</h5><ul>
+        <li><a href="/pages/guia-de-tamanhos">Guia de medidas</a></li>
+        <li><a href="/pages/trocas-e-devolucoes">Trocas e devoluções</a></li>
+        <li><a href="/pages/politica-de-privacidade">Política de privacidade</a></li>
+        <li><a href="/pages/termos-de-uso">Termos de uso</a></li>
+      </ul></div>
+      <div><h5>Noni</h5><ul>
+        <li><a href="/pages/sobre">Sobre a marca</a></li>
+        <li><a href="/pages/contact">Contato</a></li>
+        {%- if section.settings.instagram != blank %}<li><a href="{{ section.settings.instagram }}" target="_blank" rel="noopener">Instagram</a></li>{% endif -%}
+      </ul></div>
+    </div>
+    <div class="big">{% render 'noni-logo', variant: 'full' %}</div>
+    <div class="legal">
+      <span>© {{ 'now' | date: '%Y' }} Noni · {{ section.settings.company }}</span>
+      <span>{{ section.settings.payments }}</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Rodapé",
+  "settings": [
+    { "type": "text", "id": "news_title", "label": "Título da newsletter", "default": "Receba primeiro" },
+    { "type": "textarea", "id": "news_text", "label": "Texto da newsletter", "default": "Lançamentos, reposições e o calendário da Coleção 02 antes de todo mundo." },
+    { "type": "text", "id": "instagram", "label": "Link do Instagram", "default": "https://www.instagram.com/noni_brasil" },
+    { "type": "text", "id": "company", "label": "Dados da empresa", "default": "REISN Comércio de Roupas Ltda · CNPJ 60.676.571/0001-72 · Rua São João Maria, 771, sala 100, Centro II – Alto de Mafra, Mafra/SC" },
+    { "type": "text", "id": "payments", "label": "Formas de pagamento (provisório)", "default": "Pix · Cartão" }
+  ]
+}
+{% endschema %}

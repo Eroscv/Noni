@@ -1,0 +1,38 @@
+<section class="blk"{% if section.settings.flush %} style="padding-top:0"{% endif %}><div class="wrap">
+  <div class="head"><div><h2>{{ section.settings.title }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}</div>{% if section.settings.link_label != blank %}<a class="link label" href="{{ section.settings.link_url | default: '/pages/conjuntos' }}">{{ section.settings.link_label }}</a>{% endif %}</div>
+  <div class="grid">
+    {%- for block in section.blocks -%}
+      {%- assign col = block.settings.collection -%}
+      <article class="card" {{ block.shopify_attributes }}>
+        <div class="pw"><a class="pic" href="{{ col.url | default: '#' }}" aria-label="{{ block.settings.title | default: col.title | escape }}"><img class="a" loading="lazy" src="{{ block.settings.image | asset_url }}" alt=""></a></div>
+        <div class="info"><div><a class="nm" href="{{ col.url | default: '#' }}">{{ block.settings.title | default: col.title }}</a>{% if block.settings.subtitle != blank %}<div class="cl">{{ block.settings.subtitle }}</div>{% endif %}</div></div>
+      </article>
+    {%- endfor -%}
+  </div>
+</div></section>
+
+{% schema %}
+{
+  "name": "Blocos de coleções",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Conjuntos" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "As peças combinadas, por cor." },
+    { "type": "text", "id": "link_label", "label": "Texto do link", "default": "Ver todos" },
+    { "type": "url", "id": "link_url", "label": "Link" },
+    { "type": "checkbox", "id": "flush", "label": "Sem espaço no topo", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "colecao",
+      "name": "Coleção",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Coleção" },
+        { "type": "text", "id": "title", "label": "Título (opcional)" },
+        { "type": "text", "id": "subtitle", "label": "Subtítulo" },
+        { "type": "text", "id": "image", "label": "Imagem (arquivo em assets)", "default": "st24.jpg" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Blocos de coleções" }]
+}
+{% endschema %}

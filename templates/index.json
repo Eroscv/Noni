@@ -1,0 +1,296 @@
+{
+  "sections": {
+    "hero": {
+      "type": "noni-hero",
+      "settings": {
+        "video_url": "https://cdn.shopify.com/videos/c/vp/3c1169cd1ef24ef59acacfa19de240d4/3c1169cd1ef24ef59acacfa19de240d4.HD-720p-1.6Mbps-100148016.mp4"
+      }
+    },
+    "novidades": {
+      "type": "noni-products",
+      "settings": {
+        "collection": "novidades",
+        "layout": "rail",
+        "limit": 8
+      }
+    },
+    "duo": {
+      "type": "noni-duo",
+      "settings": {},
+      "blocks": {
+        "b1": {
+          "type": "banner",
+          "settings": {
+            "image": "st06.jpg",
+            "alt": "Modelo sentada com conjunto petróleo",
+            "position": "50% 52%",
+            "title": "Leggings",
+            "small": "Cintura alta, brilho acetinado",
+            "cta": "COMPRAR",
+            "url": "/collections/leggings"
+          }
+        },
+        "b2": {
+          "type": "banner",
+          "settings": {
+            "image": "st27.jpg",
+            "alt": "Dupla com conjuntos marinho e branco",
+            "position": "50% 25%",
+            "title": "Conjuntos",
+            "small": "",
+            "cta": "COMPRAR",
+            "url": "/pages/conjuntos"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2"
+      ]
+    },
+    "cores": {
+      "type": "noni-colors",
+      "settings": {},
+      "blocks": {
+        "b1": {
+          "type": "cor",
+          "settings": {
+            "name": "Preto",
+            "collection": "preto",
+            "image": "st01.jpg"
+          }
+        },
+        "b2": {
+          "type": "cor",
+          "settings": {
+            "name": "Branco",
+            "collection": "branco",
+            "image": "st22.jpg"
+          }
+        },
+        "b3": {
+          "type": "cor",
+          "settings": {
+            "name": "Esmeralda",
+            "collection": "esmeralda",
+            "image": "st06.jpg"
+          }
+        },
+        "b4": {
+          "type": "cor",
+          "settings": {
+            "name": "Mascavo",
+            "collection": "mascavo",
+            "image": "st09.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "vband": {
+      "type": "noni-vband",
+      "settings": {
+        "video_url": "https://cdn.shopify.com/videos/c/vp/9002f75f95f14c99ba61d2c0ef5d649b/9002f75f95f14c99ba61d2c0ef5d649b.HD-720p-1.6Mbps-100148017.mp4",
+        "link_url": "/collections/jaquetas"
+      }
+    },
+    "split": {
+      "type": "noni-split",
+      "settings": {
+        "btn_url": "/collections/all"
+      },
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "title": "Conjuntos",
+            "url": "/pages/conjuntos",
+            "image": "st26.jpg"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "title": "Leggings",
+            "url": "/collections/leggings",
+            "image": "st07.jpg"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "title": "Tops",
+            "url": "/collections/tops",
+            "image": "st17.jpg"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "title": "Shorts",
+            "url": "/collections/shorts",
+            "image": "st16.jpg"
+          }
+        },
+        "b5": {
+          "type": "item",
+          "settings": {
+            "title": "Jaquetas",
+            "url": "/collections/jaquetas",
+            "image": "st13.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5"
+      ]
+    },
+    "look": {
+      "type": "noni-look",
+      "settings": {
+        "link_url": "/pages/conjuntos"
+      },
+      "blocks": {
+        "b1": {
+          "type": "foto",
+          "settings": {
+            "image": "ex33.jpg",
+            "alt": "Conjunto bronze na calçada com luz e sombra",
+            "caption": "Conjunto · Mascavo",
+            "url": "/collections/mascavo"
+          }
+        },
+        "b2": {
+          "type": "foto",
+          "settings": {
+            "image": "ex38.jpg",
+            "alt": "Legging preta na escada do viaduto",
+            "caption": "Legging · Preto",
+            "url": "/collections/preto"
+          }
+        },
+        "b3": {
+          "type": "foto",
+          "settings": {
+            "image": "ex35.jpg",
+            "alt": "Conjunto petróleo no terraço com céu aberto",
+            "caption": "Esmeralda",
+            "url": "/collections/esmeralda"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ]
+    },
+    "conjuntos": {
+      "type": "noni-tiles",
+      "settings": {
+        "link_url": "/pages/conjuntos"
+      },
+      "blocks": {
+        "b1": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-branco",
+            "image": "st24.jpg"
+          }
+        },
+        "b2": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-preto",
+            "image": "st00.jpg"
+          }
+        },
+        "b3": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-esmeralda",
+            "image": "st04.jpg"
+          }
+        },
+        "b4": {
+          "type": "colecao",
+          "settings": {
+            "collection": "conjunto-mascavo",
+            "image": "st08.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "valores": {
+      "type": "noni-values",
+      "settings": {},
+      "blocks": {
+        "b1": {
+          "type": "item",
+          "settings": {
+            "title": "Frete grátis",
+            "text": "Em compras acima de R$ 499"
+          }
+        },
+        "b2": {
+          "type": "item",
+          "settings": {
+            "title": "Troca fácil",
+            "text": "Primeira troca grátis em 30 dias"
+          }
+        },
+        "b3": {
+          "type": "item",
+          "settings": {
+            "title": "Pix com 5% off",
+            "text": "Ou parcelado no cartão"
+          }
+        },
+        "b4": {
+          "type": "item",
+          "settings": {
+            "title": "Feito no Brasil",
+            "text": "Produção em Santa Catarina"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    },
+    "news": {
+      "type": "noni-newsletter",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "novidades",
+    "duo",
+    "cores",
+    "vband",
+    "split",
+    "look",
+    "conjuntos",
+    "valores",
+    "news"
+  ]
+}

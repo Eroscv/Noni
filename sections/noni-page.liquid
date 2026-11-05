@@ -1,0 +1,13 @@
+<div class="wrap" style="max-width:{{ section.settings.width }}px">
+  <nav class="crumbs" aria-label="Você está em"><a href="{{ routes.root_url }}">Início</a><span>/</span><span>{{ page.title }}</span></nav>
+  <div class="ctitle"><h1>{{ page.title }}</h1></div>
+  <div class="richtext">{{ page.content }}</div>
+  <div style="height:72px"></div>
+</div>
+
+{% schema %}
+{
+  "name": "Página de texto",
+  "settings": [ { "type": "range", "id": "width", "label": "Largura máxima (px)", "min": 600, "max": 1200, "step": 20, "default": 820 } ]
+}
+{% endschema %}

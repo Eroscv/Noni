@@ -1,0 +1,43 @@
+{
+  "sections": {
+    "main": {
+      "type": "noni-page-guide",
+      "settings": {},
+      "blocks": {
+        "b1": {
+          "type": "linha",
+          "settings": {
+            "size": "PP"
+          }
+        },
+        "b2": {
+          "type": "linha",
+          "settings": {
+            "size": "P"
+          }
+        },
+        "b3": {
+          "type": "linha",
+          "settings": {
+            "size": "M"
+          }
+        },
+        "b4": {
+          "type": "linha",
+          "settings": {
+            "size": "G"
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ]
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

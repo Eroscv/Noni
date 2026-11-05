@@ -1,0 +1,98 @@
+{%- comment -%}
+  Card de produto. Uso: render 'noni-card', product: produto, color: 'Preto' (opcional)
+{%- endcomment -%}
+{%- liquid
+  assign cor_values = blank
+  assign size_values = blank
+  for o in product.options_with_values
+    if o.name == 'Cor'
+      assign cor_values = o.values
+    elsif o.name == 'Tamanho'
+      assign size_values = o.values
+    endif
+  endfor
+
+  assign cur = blank
+  if cor_values != blank
+    if color != blank and cor_values contains color
+      assign cur = color
+    else
+      assign cur = cor_values | first
+    endif
+  endif
+
+  assign cur_variant = false
+  assign img_a = product.featured_image
+  if cur != blank
+    for v in product.variants
+      for ov in v.options_with_values
+        if ov.name == 'Cor' and ov.value == cur and cur_variant == false
+          assign cur_variant = v
+        endif
+      endfor
+    endfor
+    if cur_variant and cur_variant.featured_image
+      assign img_a = cur_variant.featured_image
+    endif
+  endif
+  assign img_b = product.images[1]
+
+  assign pr = product.price
+  assign pr_cmp = product.compare_at_price
+  if cur_variant
+    assign pr = cur_variant.price
+    assign pr_cmp = cur_variant.compare_at_price
+  endif
+
+  assign badge = ''
+  if product.tags contains 'Mais vendida'
+    assign badge = 'Mais vendida'
+  else
+    assign created = product.created_at | date: '%s' | plus: 0
+    assign now_ts = 'now' | date: '%s' | plus: 0
+    assign age_days = now_ts | minus: created | divided_by: 86400
+    if age_days <= 30
+      assign badge = 'Novo'
+    endif
+  endif
+
+  assign card_url = product.url
+  if cur_variant
+    assign card_url = product.url | append: '?variant=' | append: cur_variant.id
+  endif
+-%}
+{%- capture vjson -%}
+[{%- for v in product.variants -%}{%- assign vc = '' -%}{%- assign vs = '' -%}{%- for ov in v.options_with_values -%}{%- if ov.name == 'Cor' -%}{%- assign vc = ov.value -%}{%- elsif ov.name == 'Tamanho' -%}{%- assign vs = ov.value -%}{%- endif -%}{%- endfor -%}{"id":{{ v.id }},"c":{{ vc | json }},"s":{{ vs | json }},"a":{{ v.available }},"p":{{ v.price }},"img":{% if v.featured_image %}{{ v.featured_image | image_url: width: 600 | json }}{% else %}null{% endif %}}{%- unless forloop.last -%},{%- endunless -%}{%- endfor -%}]
+{%- endcapture -%}
+<article class="card" data-card data-handle="{{ product.handle }}" data-color="{{ cur | escape }}">
+  <div class="pw">
+    <a class="pic" href="{{ card_url }}" aria-label="{{ product.title | escape }}{% if cur != blank %} {{ cur | escape }}{% endif %}">
+      {%- if badge != blank %}<span class="badge">{{ badge }}</span>{% endif -%}
+      {%- if img_a -%}
+        <img class="a" loading="lazy" src="{{ img_a | image_url: width: 600 }}" srcset="{{ img_a | image_url: width: 400 }} 400w, {{ img_a | image_url: width: 600 }} 600w, {{ img_a | image_url: width: 900 }} 900w" sizes="(min-width:900px) 25vw, 50vw" alt="{{ product.title | escape }}" width="{{ img_a.width }}" height="{{ img_a.height }}">
+      {%- endif -%}
+      {%- if img_b and img_b.id != img_a.id -%}
+        <img class="b" loading="lazy" src="{{ img_b | image_url: width: 600 }}" alt="" width="{{ img_b.width }}" height="{{ img_b.height }}">
+      {%- endif -%}
+    </a>
+    <button type="button" class="heart" data-fav="{{ product.handle }}" aria-pressed="false" aria-label="Favoritar {{ product.title | escape }}">{% render 'noni-heart' %}</button>
+    {%- if size_values != blank and product.variants.size > 1 -%}
+      <div class="qa"><div class="t">Adicionar rápido</div><div class="s">
+        {%- for s in size_values -%}<button type="button" data-quick="{{ s | escape }}">{{ s }}</button>{%- endfor -%}
+      </div></div>
+    {%- endif -%}
+  </div>
+  <div class="info">
+    <div><a href="{{ card_url }}" class="nm">{{ product.title }}</a>{% if cur != blank %}<div class="cl" data-cl>{{ cur }}</div>{% endif %}</div>
+    <div class="price">{% render 'noni-price', price: pr, compare: pr_cmp %}</div>
+  </div>
+  {%- if cor_values != blank and cor_values.size > 1 -%}
+    <div class="sw">
+      {%- for c in cor_values -%}
+        {%- capture hex %}{% render 'noni-color', name: c %}{% endcapture -%}
+        <button type="button" data-sw="{{ c | escape }}" aria-label="{{ c | escape }}" aria-pressed="{% if c == cur %}true{% else %}false{% endif %}" style="background:{{ hex | strip }}"></button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+  <script type="application/json" data-vars>{{ vjson | strip }}</script>
+</article>

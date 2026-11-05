@@ -1,0 +1,59 @@
+{%- assign chips_cat = 'all|Todas,tops|Tops,leggings|Leggings,shorts|Shorts,jaquetas|Jaquetas,acessorios|Acessórios' | split: ',' -%}
+{%- assign chips_cor = 'preto,branco,esmeralda,mascavo' | split: ',' -%}
+{%- assign sort = collection.sort_by | default: collection.default_sort_by -%}
+<div class="wrap">
+  <nav class="crumbs" aria-label="Você está em"><a href="{{ routes.root_url }}">Início</a><span>/</span><span>{{ collection.title }}</span></nav>
+  <div class="ctitle"><h1>{{ collection.title }}</h1>{% if collection.description != blank %}<p>{{ collection.description | strip_html | truncate: 220 }}</p>{% endif %}</div>
+</div>
+<div class="toolbar"><div class="wrap">
+  <div class="chips" aria-label="Filtrar por coleção">
+    {%- for c in chips_cat -%}
+      {%- assign kv = c | split: '|' -%}
+      <a href="/collections/{{ kv[0] }}" {% if collection.handle == kv[0] %}aria-current="page"{% endif %}>{{ kv[1] }}</a>
+    {%- endfor -%}
+    {%- for h in chips_cor -%}
+      {%- capture hex %}{% render 'noni-color', name: h %}{% endcapture -%}
+      <a href="/collections/{{ h }}" {% if collection.handle == h %}aria-current="page"{% endif %}><span class="dot" style="background:{{ hex | strip }};margin-right:8px"></span>{{ h | capitalize }}</a>
+    {%- endfor -%}
+  </div>
+  <form class="tools" method="get" data-sort-form>
+    <span>{{ collection.products_count }} {% if collection.products_count == 1 %}peça{% else %}peças{% endif %}</span>
+    <label for="sort" class="label" style="font-size:10px">Ordenar</label>
+    <select id="sort" name="sort_by">
+      <option value="manual" {% if sort == 'manual' %}selected{% endif %}>Relevância</option>
+      <option value="price-ascending" {% if sort == 'price-ascending' %}selected{% endif %}>Menor preço</option>
+      <option value="price-descending" {% if sort == 'price-descending' %}selected{% endif %}>Maior preço</option>
+      <option value="title-ascending" {% if sort == 'title-ascending' %}selected{% endif %}>A–Z</option>
+      <option value="created-descending" {% if sort == 'created-descending' %}selected{% endif %}>Mais recentes</option>
+    </select>
+    <noscript><button type="submit" class="btn ghost" style="height:36px;padding:0 16px">Aplicar</button></noscript>
+  </form>
+</div></div>
+<div class="wrap">
+  {%- paginate collection.products by 24 -%}
+    {%- if collection.products.size == 0 -%}
+      <div class="empty"><span class="serif" style="font-size:30px;color:var(--ink)">Nenhuma peça por aqui ainda</span><span>Volte em breve ou veja o restante da coleção.</span><a class="btn" href="/collections/all">Ver a coleção</a></div>
+    {%- else -%}
+      <div class="grid">
+        {%- for p in collection.products -%}{% render 'noni-card', product: p %}{%- endfor -%}
+      </div>
+      {%- if paginate.pages > 1 -%}
+        <nav class="pagination" aria-label="Paginação">
+          {%- if paginate.previous %}<a href="{{ paginate.previous.url }}">←</a>{% endif -%}
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link %}<a href="{{ part.url }}">{{ part.title }}</a>{% elsif part.title == paginate.current_page %}<span class="current">{{ part.title }}</span>{% else %}<span>{{ part.title }}</span>{% endif -%}
+          {%- endfor -%}
+          {%- if paginate.next %}<a href="{{ paginate.next.url }}">→</a>{% endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endpaginate -%}
+  <div style="height:64px"></div>
+</div>
+
+{% schema %}
+{
+  "name": "Coleção",
+  "settings": []
+}
+{% endschema %}

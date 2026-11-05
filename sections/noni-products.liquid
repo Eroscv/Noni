@@ -1,0 +1,32 @@
+{%- assign col = section.settings.collection -%}
+<section class="blk"{% if section.settings.flush %} style="padding-top:0"{% endif %}><div class="wrap">
+  <div class="head">
+    <div><h2>{{ section.settings.title }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}</div>
+    {%- if col != blank and section.settings.link_label != blank %}<a class="link label" href="{{ col.url }}">{{ section.settings.link_label }}</a>{% endif -%}
+  </div>
+  {%- if col == blank or col.products_count == 0 -%}
+    <div class="empty" style="padding:30px 0"><span>{% if col == blank %}Escolha uma coleção para esta seção.{% else %}Nenhum produto ativo nesta coleção ainda.{% endif %}</span></div>
+  {%- else -%}
+    <div class="{{ section.settings.layout }}">
+      {%- for p in col.products limit: section.settings.limit -%}
+        {% render 'noni-card', product: p %}
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div></section>
+
+{% schema %}
+{
+  "name": "Produtos de uma coleção",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Novidades" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "As peças que acabaram de chegar. Passe o mouse para ver de outro ângulo e escolha o tamanho direto no card." },
+    { "type": "collection", "id": "collection", "label": "Coleção" },
+    { "type": "text", "id": "link_label", "label": "Texto do link", "default": "Ver tudo" },
+    { "type": "select", "id": "layout", "label": "Layout", "default": "rail", "options": [ { "value": "rail", "label": "Carrossel" }, { "value": "grid", "label": "Grade" } ] },
+    { "type": "range", "id": "limit", "label": "Quantidade", "min": 2, "max": 12, "step": 1, "default": 8 },
+    { "type": "checkbox", "id": "flush", "label": "Sem espaço no topo", "default": false }
+  ],
+  "presets": [{ "name": "Produtos de uma coleção" }]
+}
+{% endschema %}

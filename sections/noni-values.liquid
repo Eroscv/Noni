@@ -1,0 +1,23 @@
+<div class="wrap"><div class="vals">
+  {%- for block in section.blocks limit: 4 -%}
+    <div {{ block.shopify_attributes }}><b>{{ block.settings.title }}</b><span>{{ block.settings.text }}</span></div>
+  {%- endfor -%}
+</div></div>
+
+{% schema %}
+{
+  "name": "Diferenciais (provisório)",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Diferencial",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Título", "default": "Frete grátis" },
+        { "type": "text", "id": "text", "label": "Texto", "default": "Em compras acima de R$ 499" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Diferenciais", "blocks": [{ "type": "item" }, { "type": "item" }, { "type": "item" }, { "type": "item" }] }]
+}
+{% endschema %}

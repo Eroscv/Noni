@@ -1,0 +1,37 @@
+<section class="blk" style="padding-top:0"><div class="wrap">
+  <div class="head"><div><h2>{{ section.settings.title }}</h2>{% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}</div>{% if section.settings.link_label != blank %}<a class="link label" href="{{ section.settings.link_url | default: '/collections/all' }}">{{ section.settings.link_label }}</a>{% endif %}</div>
+  <div class="look">
+    {%- for block in section.blocks limit: 3 -%}
+      {%- assign cls = 'a' -%}{%- if forloop.index == 2 -%}{%- assign cls = 'b' -%}{%- elsif forloop.index == 3 -%}{%- assign cls = 'c' -%}{%- endif -%}
+      <figure class="{{ cls }}" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.url | default: '#' }}"><img loading="lazy" src="{{ block.settings.image | asset_url }}" alt="{{ block.settings.alt | escape }}">{% if block.settings.caption != blank %}<figcaption>{{ block.settings.caption }}</figcaption>{% endif %}</a>
+      </figure>
+    {%- endfor -%}
+  </div>
+</div></section>
+
+{% schema %}
+{
+  "name": "Lookbook (Nas ruas)",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Título", "default": "Nas ruas" },
+    { "type": "textarea", "id": "text", "label": "Texto", "default": "A Coleção 01 fotografada entre escadarias, terraços e viadutos." },
+    { "type": "text", "id": "link_label", "label": "Texto do link", "default": "Comprar os looks" },
+    { "type": "url", "id": "link_url", "label": "Link" }
+  ],
+  "blocks": [
+    {
+      "type": "foto",
+      "name": "Foto",
+      "settings": [
+        { "type": "text", "id": "image", "label": "Imagem (arquivo em assets)", "default": "ex33.jpg" },
+        { "type": "text", "id": "alt", "label": "Texto alternativo" },
+        { "type": "text", "id": "caption", "label": "Legenda" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Lookbook (Nas ruas)" }]
+}
+{% endschema %}

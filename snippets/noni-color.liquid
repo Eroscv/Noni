@@ -1,0 +1,21 @@
+{%- liquid
+  assign n = name | downcase | strip
+  case n
+    when 'preto'
+      echo '#111111'
+    when 'branco'
+      echo '#F3F3F3'
+    when 'esmeralda'
+      echo '#347F88'
+    when 'mascavo'
+      echo '#321310'
+    when 'petróleo', 'petroleo'
+      echo '#1F6F78'
+    when 'bronze'
+      echo '#7A6142'
+    when 'marinho'
+      echo '#1C2333'
+    else
+      echo '#B6BCC3'
+  endcase
+-%}
