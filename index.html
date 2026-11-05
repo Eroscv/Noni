@@ -364,6 +364,10 @@ details.acc div{padding-bottom:18px;font-size:14px;color:var(--steel);display:gr
 .lightbox img{max-height:92vh;width:auto;object-fit:contain;border-radius:18px}
 .lightbox button{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));color:#F5F6F7}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+/* Responsivo: tablet, telas ultra-largas e barra dinâmica do celular */
+@media(min-width:600px) and (max-width:899px){.rail{grid-auto-columns:calc((100% - 16px)/2.4)}.duo{grid-template-columns:minmax(0,2fr) minmax(0,1fr)}.split .pic2{aspect-ratio:16/11}.edit .img{min-height:420px}}
+@media(min-width:1936px){.hero,.vband,.edit{max-width:1920px;margin-left:auto;margin-right:auto}}
+@supports(height:1svh){.hero{height:clamp(500px,78svh,840px)}}
 </style>
 
 <div class="bar"><div class="wrap"><span>Frete grátis acima de R$ 499</span><span>Primeira troca grátis em até 30 dias</span><span>Pix com 5% off</span></div></div>
